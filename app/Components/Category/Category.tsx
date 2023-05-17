@@ -81,7 +81,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         useStore.setState(() => ({
             categoryClicked: title,
         }))
-        let amountTravelled = 5
+        let amountTravelled = 1
         let scrollAmount = categoryRef.current!.getBoundingClientRect().top
         let foop = categoryRef.current!.getBoundingClientRect().top
         scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
@@ -105,7 +105,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     alert(foop)
                 }, 100)
             }
-        },5)
+        },1)
         })
         setTimeout(() => {
             // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
