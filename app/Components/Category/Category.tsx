@@ -79,7 +79,13 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         //     bodyLocked: true
         // }))
         setTimeout(() => {
-            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
+            const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
+            window.scroll({
+            top: y,
+            behavior: 'smooth'
+            });
             setPriceActive(false)
             setBodyLockedDisabled(false)
             setTimeout(() => {
@@ -102,6 +108,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             setActive(false)
             setTimeout(() => {
                 setPriceActive(true)
+                
                 scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
                 setTimeout(() => {
                     useStore.setState((set: any) => ({bodyLocked: false}))
