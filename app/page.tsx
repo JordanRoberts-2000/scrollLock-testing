@@ -17,20 +17,20 @@ export default function Home() {
     }
     const detectPower = async () => {
         let power = await detectPowerSavingMode()
-        if(power){
-            alert('powersaving mode detected')
-        }else{
-            alert('no powersaving mode detected')
-        }
+        // if(power){
+        //     alert('powersaving mode detected')
+        // }else{
+        //     alert('no powersaving mode detected')
+        // }
     }
     useLayoutEffect(() => {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        // document.body.scrollTop = document.documentElement.scrollTop = 0;
         let power =
         detectPower()
         videoRef.current!.play()
         .then(() => {})
          .catch((error) => {
-            alert(error)
+            // alert(error)
         })
     },[])
     return (
