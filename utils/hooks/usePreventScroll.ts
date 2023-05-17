@@ -1,10 +1,5 @@
 import { useLayoutEffect } from "react";
 
-interface PreventScrollOptions {
-  /** Whether the scroll lock is disabled. */
-  isDisabled?: boolean
-}
-
 // @ts-ignore
 const visualViewport = typeof window !== 'undefined' && window.visualViewport;
 
@@ -24,27 +19,25 @@ const nonTextInputTypes = new Set([
 const isIOS = () => {return false}
 // The number of active usePreventScroll calls. Used to determine whether to revert back to the original page style/scroll position
 let preventScrollCount = 0;
-let restore:any
 
 /**
  * Prevents scrolling on the document body on mount, and
  * restores it on unmount. Also ensures that content does not
  * shift due to the scrollbars disappearing.
  */
-export function usePreventScroll(options: PreventScrollOptions = {}) {
-  let {isDisabled} = options;
-
+export const usePreventScroll = (disabled?: boolean) => {
   useLayoutEffect(() => {
-    if (isDisabled) {
+    if (disabled) {
       return;
     }
 
     preventScrollCount++;
     if (preventScrollCount === 1) {
       if (isIOS()) {
-        preventScrollStandard();
+        return
       } else {
-        preventScrollStandard();
+        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+        document.documentElement.style.overflow = 'hidden'
       }
     }
 
@@ -55,14 +48,7 @@ export function usePreventScroll(options: PreventScrollOptions = {}) {
         document.documentElement.style.overflow = 'auto'
       }
     };
-  }, [isDisabled]);
-}
-
-// For most browsers, all we need to do is set `overflow: hidden` on the root element, and
-// add some padding to prevent the page from shifting when the scrollbar is hidden.
-const preventScrollStandard = () => {
-    document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-    document.documentElement.style.overflow = 'hidden'
+  }, [disabled]);
 }
 
 // Mobile Safari is a whole different beast. Even with overflow: hidden,

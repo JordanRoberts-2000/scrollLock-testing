@@ -2,13 +2,12 @@
 
 import { usePreventScroll } from '@/utils/hooks/usePreventScroll';
 import { useStore } from '@/zustand/store'
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
     usePreventScroll()
-    const { termsImageLoaded, bodyLocked } = useStore()
+    const { termsImageLoaded } = useStore()
     let transitionDiv = useRef<HTMLDivElement>(null)
-    if(!bodyLocked)useStore.setState((set: { bodyLocked: boolean }) => ({bodyLocked: true}))
     let wrapperRef = useRef<HTMLDivElement>(null)
     const transitionPage = () => {
         requestAnimationFrame(() => {
@@ -20,7 +19,6 @@ const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },[])
     useLayoutEffect(() => {
-        console.log(termsImageLoaded)
         if(termsImageLoaded)transitionPage()
     },[termsImageLoaded])
     return (

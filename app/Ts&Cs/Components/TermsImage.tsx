@@ -8,7 +8,7 @@ const TermsImage = () => {
         useStore.setState(() => ({termsImageLoaded: true}))
     }
     return (
-        <Image alt="A view of pocahontas beach" fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684266095/drsqvbva0mgzm2o0dra9.webp'} className="object-cover" onLoad={() => handleOnload()}/>
+        <Image alt="A view of pocahontas beach" fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684266095/drsqvbva0mgzm2o0dra9.webp'} className="object-cover" onLoadingComplete={() => handleOnload()}/>
     )
 }
 
