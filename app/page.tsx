@@ -2,17 +2,25 @@
 
 import pageData from '@/Data.json'
 import Image from 'next/image'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import Footer from './Components/Footer/Footer'
 import Category from './Components/Category/Category'
+// import video from '../public/'
+// import eep from '../video/eep.mp4'
 
 export default function Home() {
     const [loaded, setLoaded] = useState(false)
+    let videoRef = useRef<HTMLVideoElement>(null)
     const imageLoaded = () => {
         setLoaded(true)
     }
     useLayoutEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+        videoRef.current!.play()
+        .then(() => {})
+         .catch((error) => {
+            alert(error)
+        })
     },[])
     return (
         <>
@@ -22,6 +30,9 @@ export default function Home() {
                     <Image alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684205919/epavcxsimcv1pqe6mriz.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
                 </main>
             </div>
+            <video ref={videoRef} width="750" height="500" controls muted>
+                <source src={'/powerSaving.mp4'} type="video/mp4"/>
+            </video>
             <section className="pb-4 bg-white lg:flex-[9]">
                 <ul className="flex flex-col gap-4 lg:gap-0 ">
                     {pageData.map(({imageUrl, title, subtitle, priceOptions, reviews, galleryImageUrls, blurImageUrl}, index) => (
