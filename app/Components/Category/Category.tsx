@@ -81,8 +81,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         useStore.setState(() => ({
             categoryClicked: title,
         }))
-        let amountTravelled = 10
+        let amountTravelled = 5
         let scrollAmount = categoryRef.current!.getBoundingClientRect().top
+        let foop = categoryRef.current!.getBoundingClientRect().top
         scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
         console.log(scrollAmount, 'sroll', (-1 * -1))
         setPriceActive(false)
@@ -101,6 +102,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 clearInterval(scrollingUp)
                 setTimeout(() => {
                     setActive(true)
+                    alert(foop)
                 }, 100)
             }
         },5)
