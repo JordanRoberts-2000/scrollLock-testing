@@ -59,35 +59,35 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         let style = window.getComputedStyle(node);
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
-    let onTouchMove = useCallback(( e: TouchEvent) => {
-        let scrollable = getScrollParent(e.target as Element)
-      if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
-        console.log('scrolling body')
-        if (e.cancelable) {
-            e.preventDefault();
-         }
-        return;
-      }
-      let y = e.changedTouches[0].pageY;
-    let scrollTop = scrollable.scrollTop;
-    let bottom = scrollable.scrollHeight - scrollable.clientHeight;
+    // let onTouchMove = useCallback(( e: TouchEvent) => {
+    //     let scrollable = getScrollParent(e.target as Element)
+    //   if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
+    //     console.log('scrolling body')
+    //     if (e.cancelable) {
+    //         e.preventDefault();
+    //      }
+    //     return;
+    //   }
+    //   let y = e.changedTouches[0].pageY;
+    // let scrollTop = scrollable.scrollTop;
+    // let bottom = scrollable.scrollHeight - scrollable.clientHeight;
 
-    if ((scrollTop <= 0 && y > lastY.current) || (scrollTop >= bottom && y < lastY.current)) {
-        console.log('stop')
-      e.preventDefault();
-    }
+    // if ((scrollTop <= 0 && y > lastY.current) || (scrollTop >= bottom && y < lastY.current)) {
+    //     console.log('stop')
+    //   e.preventDefault();
+    // }
 
-    lastY.current = y;
-    },[])
+    // lastY.current = y;
+    // },[])
     const handleSelected = () => {
         if(active)return
-        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        document.documentElement.style.overflow = 'hidden'
-        document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
-        useStore.setState(() => ({
-            categoryClicked: title,
-            bodyLocked: true
-        }))
+        // document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+        // document.documentElement.style.overflow = 'hidden'
+        // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
+        // useStore.setState(() => ({
+        //     categoryClicked: title,
+        //     bodyLocked: true
+        // }))
         setTimeout(() => {
             categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             setPriceActive(false)
@@ -99,10 +99,10 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleExit = () => {
         if(!active)return
-        document.removeEventListener('touchmove', onTouchMove)
-        document.documentElement.style.paddingRight = `0px`
-        document.documentElement.style.overflow = 'auto'
-        setBodyLockedDisabled(true)
+        // document.removeEventListener('touchmove', onTouchMove)
+        // document.documentElement.style.paddingRight = `0px`
+        // document.documentElement.style.overflow = 'auto'
+        // setBodyLockedDisabled(true)
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
         if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
@@ -120,7 +120,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         }, scrollDelay)
     }
     return (
-        <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black`} onClick={() => handleSelected()}>
+        <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
             <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
