@@ -38,7 +38,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
-    usePreventScroll(!active)
+    const [bodyLockedDisabled, setBodyLockedDisabled] = useState(true)
+    usePreventScroll(bodyLockedDisabled)
     const [priceActive, setPriceActive] = useState(true)
     const handleSelected = () => {
         if(active)return
@@ -49,6 +50,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         setTimeout(() => {
             categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             setPriceActive(false)
+            setBodyLockedDisabled(false)
             setTimeout(() => {
                 setActive(true)
             }, 400)
@@ -56,6 +58,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleExit = () => {
         if(!active)return
+        setBodyLockedDisabled(true)
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
         if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500

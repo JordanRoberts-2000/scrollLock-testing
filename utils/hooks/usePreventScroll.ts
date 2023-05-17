@@ -27,6 +27,7 @@ let preventScrollCount = 0;
  */
 export const usePreventScroll = (disabled?: boolean) => {
   useLayoutEffect(() => {
+    console.log('bodyLocked')
     if (disabled) {
       return;
     }
@@ -95,17 +96,17 @@ function preventScrollMobileSafari() {
          }
         return;
       }
-      let y = e.changedTouches[0].pageY;
-      let scrollTop = scrollable.scrollTop;
-      let bottom = scrollable.scrollHeight - scrollable.clientHeight;
-      console.log('not scrolling body')
-      if ((scrollTop <= 0 && y > lastY) || (scrollTop >= bottom && y < lastY)) {
-        if (e.cancelable) {
-            e.preventDefault();
-         }
-      }
+    //   let y = e.changedTouches[0].pageY;
+    //   let scrollTop = scrollable.scrollTop;
+    //   let bottom = scrollable.scrollHeight - scrollable.clientHeight;
+    //   console.log('not scrolling body')
+    //   if ((scrollTop <= 0 && y > lastY) || (scrollTop >= bottom && y < lastY)) {
+    //     if (e.cancelable) {
+    //         e.preventDefault();
+    //      }
+    //   }
   
-      lastY = y;
+    //   lastY = y;
     };
     let removeEvents = chain(
       addEvent(document, 'touchmove', onTouchMove, {passive: false, capture: true}),
