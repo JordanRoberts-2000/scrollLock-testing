@@ -1,7 +1,7 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
-import { useLayoutEffect, useRef, useState } from "react"
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
 // import CategoryImage from "./CategoryImage"
 import { motion } from "framer-motion"
 import CategoryImage from "./CategoryImage"
@@ -39,10 +39,39 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [bodyLockedDisabled, setBodyLockedDisabled] = useState(true)
-    usePreventScroll(bodyLockedDisabled)
+    // usePreventScroll(bodyLockedDisabled)
     const [priceActive, setPriceActive] = useState(true)
+    function getScrollParent(node: Element): Element {
+        if (isScrollable(node)) {
+          node = node.parentElement!;
+        }
+      
+        while (node && !isScrollable(node)) {
+          node = node.parentElement!;
+        }
+      
+        return node || document.scrollingElement || document.documentElement;
+      }
+      
+      function isScrollable(node: Element): boolean {
+        let style = window.getComputedStyle(node);
+        return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
+      }
+    let onTouchMove = useCallback(( e: TouchEvent) => {
+        let scrollable = getScrollParent(e.target as Element)
+      if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
+        console.log('scrolling body')
+        if (e.cancelable) {
+            e.preventDefault();
+         }
+        return;
+      }
+    },[])
     const handleSelected = () => {
         if(active)return
+        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+        document.documentElement.style.overflow = 'hidden'
+        document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
         useStore.setState(() => ({
             categoryClicked: title,
             bodyLocked: true
@@ -58,6 +87,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleExit = () => {
         if(!active)return
+        document.removeEventListener('touchmove', onTouchMove)
+        document.documentElement.style.paddingRight = `0px`
+        document.documentElement.style.overflow = 'auto'
         setBodyLockedDisabled(true)
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250

@@ -27,7 +27,7 @@ let preventScrollCount = 0;
  */
 export const usePreventScroll = (disabled?: boolean) => {
   useLayoutEffect(() => {
-    console.log('bodyLocked')
+    console.log('bodyLocked ')
     if (disabled) {
       return;
     }
