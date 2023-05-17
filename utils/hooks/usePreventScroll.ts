@@ -38,6 +38,7 @@ export const usePreventScroll = (disabled?: boolean) => {
       } else {
         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
         document.documentElement.style.overflow = 'hidden'
+        preventScrollMobileSafari()
       }
     }
 
@@ -77,15 +78,81 @@ export const usePreventScroll = (disabled?: boolean) => {
 //    above work or Safari will still try to scroll the page when focusing an input.
 // 6. As a last resort, handle window scroll events, and scroll back to the top. This can happen when attempting
 //    to navigate to an input with the next/previous buttons that's outside a modal.
+function preventScrollMobileSafari() {
+    let scrollable: any;
+    let lastY = 0;
+    
+    let onTouchStart = (e: TouchEvent) => {
+        scrollable = getScrollParent(e.target as Element)
+    }
 
+    let onTouchMove = (e: TouchEvent) => {
+        scrollable = getScrollParent(e.target as Element)
+      if (scrollable === document.documentElement || scrollable === document.body) {
+        console.log('scrolling body')
+        if (e.cancelable) {
+            e.preventDefault();
+         }
+        return;
+      }
+      let y = e.changedTouches[0].pageY;
+      let scrollTop = scrollable.scrollTop;
+      let bottom = scrollable.scrollHeight - scrollable.clientHeight;
+      console.log('not scrolling body')
+      if ((scrollTop <= 0 && y > lastY) || (scrollTop >= bottom && y < lastY)) {
+        if (e.cancelable) {
+            e.preventDefault();
+         }
+      }
+  
+      lastY = y;
+    };
+    let removeEvents = chain(
+      addEvent(document, 'touchmove', onTouchMove, {passive: false, capture: true}),
+      addEvent(document, 'touchmove', onTouchStart, {passive: false, capture: true}),
+    );
+  
+    return () => {
+        removeEvents()
+    };
+  }
 
-// Sets a CSS property on an element, and returns a function to revert it to the previous value.
-function setStyle(element: HTMLElement, style: any, value: string) {
-  let cur = element.style[style];
-  element.style[style] = value;
+  export function chain(...callbacks: any[]): (...args: any[]) => void {
+    return (...args: any[]) => {
+      for (let callback of callbacks) {
+        if (typeof callback === 'function') {
+          callback(...args);
+        }
+      }
+    };
+  }
+  
+  // Adds an event listener to an element, and returns a function to remove it.
+  function addEvent<K extends keyof GlobalEventHandlersEventMap>(
+    target: EventTarget,
+    event: K,
+    handler: (this: Document, ev: any) => any,
+    options?: boolean | AddEventListenerOptions
+  ) {
+    target.addEventListener(event, handler, options);
+    return () => {
+      target.removeEventListener(event, handler, options);
+    };
+  }
 
-  return () => {
-    element.style[style] = cur;
-  };
-}
-
+  export function getScrollParent(node: Element): Element {
+    if (isScrollable(node)) {
+      node = node.parentElement!;
+    }
+  
+    while (node && !isScrollable(node)) {
+      node = node.parentElement!;
+    }
+  
+    return node || document.scrollingElement || document.documentElement;
+  }
+  
+  export function isScrollable(node: Element): boolean {
+    let style = window.getComputedStyle(node);
+    return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
+  }
