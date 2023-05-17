@@ -126,7 +126,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-visible aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-scroll"} mx-auto
-            ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
+            ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid overscroll-contain lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
                 {/* Image/Gallery */}
                 <div className="w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative mb-4" onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl}/>
