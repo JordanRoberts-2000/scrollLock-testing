@@ -39,9 +39,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
-    // usePreventScroll()
-    const [bodyLockedDisabled, setBodyLockedDisabled] = useState(true)
-    // usePreventScroll(bodyLockedDisabled)
     const [priceActive, setPriceActive] = useState(true)
     function getScrollParent(node: Element): Element {
         if (isScrollable(node)) {
@@ -81,16 +78,29 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         // document.addEventListener('touchmove', onTouchMove)
         // document.addEventListener('touchstart', onTouchStart)
         // document.addEventListener('touchend', onTouchStart)
-        // useStore.setState(() => ({
-        //     categoryClicked: title,
-        //     bodyLocked: true
-        // }))
-        let scrollAmount = categoryRef.current!.getBoundingClientRect().top + 8
-            const ee = setInterval(() => {
-                scrollAmount >= 10 ? scrollAmount -= 10 : scrollAmount -= scrollAmount
+        useStore.setState(() => ({
+            categoryClicked: title,
+        }))
+        let scrollAmount = categoryRef.current!.getBoundingClientRect().top
+        scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
+        console.log(scrollAmount, 'sroll', (-1 * -1))
+        setPriceActive(false)
+        const scrollingUp = setInterval(() => {
+            if(scrollAmount >= 0){
                 console.log(scrollAmount)
+                scrollAmount >= 10 ? scrollAmount -= 10 : scrollAmount -= scrollAmount
                 scrollBy(0,scrollAmount >= 10 ? 10 : scrollAmount)
-                if(scrollAmount === 0 || scrollAmount < -100)clearInterval(ee)
+            }else{
+                console.log(scrollAmount)
+                scrollAmount <= -10 ? scrollAmount += 10 : scrollAmount += (scrollAmount * -1)
+                scrollBy(0,scrollAmount <= -10 ? -10 : -scrollAmount)
+            }
+            if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
+                clearInterval(scrollingUp)
+                setTimeout(() => {
+                    setActive(true)
+                }, 100)
+            }
         },5)
         setTimeout(() => {
             // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
@@ -100,10 +110,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             // top: y,
             // behavior: 'smooth'
             // });
-            setPriceActive(false)
-            setBodyLockedDisabled(false)
+            
             setTimeout(() => {
-                setActive(true)
+                
             }, 400)
         },10)
     }
