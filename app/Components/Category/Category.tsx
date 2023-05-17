@@ -60,20 +60,27 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
     let onTouchMove = useCallback(( e: TouchEvent) => {
-        let scrollable = getScrollParent(e.target as Element)
-      if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
-        console.log('scrolling body')
-        if (e.cancelable) {
-            e.preventDefault();
-         }
-        return;
-      }
+        e.preventDefault();
+    //     let scrollable = getScrollParent(e.target as Element)
+    //   if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
+    //     console.log('scrolling body')
+    //     if (e.cancelable) {
+    //         e.preventDefault();
+    //      }
+    //     return;
+    //   }
     },[])
+    let onTouchStart = (e: TouchEvent) => {
+        e.preventDefault()
+    }
     const handleSelected = () => {
         if(active)return
         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
         document.documentElement.style.overflow = 'hidden'
         document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
+        document.addEventListener('touchmove', onTouchMove)
+        document.addEventListener('touchstart', onTouchStart)
+        document.addEventListener('touchend', onTouchStart)
         // useStore.setState(() => ({
         //     categoryClicked: title,
         //     bodyLocked: true
