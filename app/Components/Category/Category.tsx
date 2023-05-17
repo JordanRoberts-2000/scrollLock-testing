@@ -78,16 +78,16 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
         document.documentElement.style.overflow = 'hidden'
         document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
-        document.addEventListener('touchmove', onTouchMove)
-        document.addEventListener('touchstart', onTouchStart)
-        document.addEventListener('touchend', onTouchStart)
+        // document.addEventListener('touchmove', onTouchMove)
+        // document.addEventListener('touchstart', onTouchStart)
+        // document.addEventListener('touchend', onTouchStart)
         // useStore.setState(() => ({
         //     categoryClicked: title,
         //     bodyLocked: true
         // }))
         setTimeout(() => {
             // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
-            window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
+            // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
             const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
             window.scroll({
             top: y,
