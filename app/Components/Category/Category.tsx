@@ -89,16 +89,16 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
             // const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
-            // window.scroll({
-            // top: y,
-            // behavior: 'smooth'
-            // });
-            let scrollAmount = 0
-            const ee = setInterval(() => {
-                scrollAmount = scrollAmount + 5
-                scrollBy(0,5)
-                if(scrollAmount === 500)clearInterval(ee)
-            },5)
+            scrollBy({
+            top: 600,
+            behavior: 'smooth'
+            });
+            // let scrollAmount = 0
+            // const ee = setInterval(() => {
+            //     scrollAmount = scrollAmount + 5
+            //     scrollBy(0,5)
+            //     if(scrollAmount === 500)clearInterval(ee)
+            // },5)
             setPriceActive(false)
             setBodyLockedDisabled(false)
             setTimeout(() => {
