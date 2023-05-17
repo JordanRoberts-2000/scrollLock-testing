@@ -5,7 +5,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from "react"
 // import CategoryImage from "./CategoryImage"
 import { motion } from "framer-motion"
 import CategoryImage from "./CategoryImage"
-import { usePreventScroll } from "@/utils/hooks/usePreventScroll"
+import { usePreventScroll } from "@/utils/hooks/usePreventOriginal"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 // import Galllery from "./Galllery"
 
@@ -35,9 +35,11 @@ type Props = {
 const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryImageUrls, blurImageUrl, index}: Props) => {
     let categoryRef = useRef<HTMLLIElement>(null)
     let scrollUpRef = useRef<HTMLDivElement>(null)
+    let lastY = useRef(0);
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
+    // usePreventScroll()
     const [bodyLockedDisabled, setBodyLockedDisabled] = useState(true)
     // usePreventScroll(bodyLockedDisabled)
     const [priceActive, setPriceActive] = useState(true)
@@ -66,6 +68,16 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
          }
         return;
       }
+      let y = e.changedTouches[0].pageY;
+    let scrollTop = scrollable.scrollTop;
+    let bottom = scrollable.scrollHeight - scrollable.clientHeight;
+
+    if ((scrollTop <= 0 && y > lastY.current) || (scrollTop >= bottom && y < lastY.current)) {
+        console.log('stop')
+      e.preventDefault();
+    }
+
+    lastY.current = y;
     },[])
     const handleSelected = () => {
         if(active)return
