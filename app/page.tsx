@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useLayoutEffect, useRef, useState } from 'react'
 import Footer from './Components/Footer/Footer'
 import Category from './Components/Category/Category'
+import detectPowerSavingMode from '../utils/powersavingMode'
 // import video from '../public/'
 // import eep from '../video/eep.mp4'
 
@@ -14,8 +15,18 @@ export default function Home() {
     const imageLoaded = () => {
         setLoaded(true)
     }
+    const detectPower = async () => {
+        let power = await detectPowerSavingMode()
+        // if(power){
+        //     alert('powersaving mode detected')
+        // }else{
+        //     alert('no powersaving mode detected')
+        // }
+    }
     useLayoutEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+        let power =
+        detectPower()
         videoRef.current!.play()
         .then(() => {})
          .catch((error) => {
