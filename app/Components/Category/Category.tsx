@@ -59,31 +59,21 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         let style = window.getComputedStyle(node);
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
-    // let onTouchMove = useCallback(( e: TouchEvent) => {
-    //     let scrollable = getScrollParent(e.target as Element)
-    //   if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
-    //     console.log('scrolling body')
-    //     if (e.cancelable) {
-    //         e.preventDefault();
-    //      }
-    //     return;
-    //   }
-    //   let y = e.changedTouches[0].pageY;
-    // let scrollTop = scrollable.scrollTop;
-    // let bottom = scrollable.scrollHeight - scrollable.clientHeight;
-
-    // if ((scrollTop <= 0 && y > lastY.current) || (scrollTop >= bottom && y < lastY.current)) {
-    //     console.log('stop')
-    //   e.preventDefault();
-    // }
-
-    // lastY.current = y;
-    // },[])
+    let onTouchMove = useCallback(( e: TouchEvent) => {
+        let scrollable = getScrollParent(e.target as Element)
+      if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
+        console.log('scrolling body')
+        if (e.cancelable) {
+            e.preventDefault();
+         }
+        return;
+      }
+    },[])
     const handleSelected = () => {
         if(active)return
-        // document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        // document.documentElement.style.overflow = 'hidden'
-        // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
+        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+        document.documentElement.style.overflow = 'hidden'
+        document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
         // useStore.setState(() => ({
         //     categoryClicked: title,
         //     bodyLocked: true
@@ -125,7 +115,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-            <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-visible aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-scroll"} mx-auto
+            <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-hidden aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-scroll"} mx-auto
             ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid overscroll-contain lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
                 {/* Image/Gallery */}
                 <div className="w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative mb-4" onClick={() => handleExit()}>
