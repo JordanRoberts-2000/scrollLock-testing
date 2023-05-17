@@ -2,7 +2,7 @@ import React from 'react'
 
 const TermsList = () => {
   return (
-    <div className="flex-[2] h-screen overflow-y-auto">
+    <div className="lg:flex-[2] lg:h-screen h-[calc(65vh+50px)] overflow-y-auto">
                 <h2>Terms and Conditions</h2>
             
                 <p>
