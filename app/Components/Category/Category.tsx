@@ -92,7 +92,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     // Stage 3 - success
                     setActive(false)
                     clearInterval(checkTop)
-                    useStore.setState(() => ({categoryClicked: ""}))
                     setTimeout(() => {
                         setPriceActive(true)
                         scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
@@ -106,6 +105,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                             document.documentElement.style.paddingRight = `0px`
                             document.documentElement.style.overflow = 'auto'
                             document.documentElement.style.touchAction = 'auto'
+                            useStore.setState(() => ({categoryClicked: ""}))
                         },150)
                     }, 400)
                 }
