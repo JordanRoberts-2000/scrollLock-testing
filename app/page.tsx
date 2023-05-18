@@ -20,7 +20,7 @@ export default function Home() {
         let power = await detectPowerSavingMode()
         if(power){
             useStore.setState(() => ({ powerSavingMode: true}))
-            alert('power saving detcted')
+            // alert('power saving detcted')
         }else{
              useStore.setState(() => ({ powerSavingMode: true}))
         }
@@ -28,7 +28,7 @@ export default function Home() {
     useLayoutEffect(() => {
         // document.body.scrollTop = document.documentElement.scrollTop = 0;
         // let power =
-        // detectPower()
+        detectPower()
         // videoRef.current!.play()
         // .then(() => {})
         //  .catch((error) => {
