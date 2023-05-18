@@ -19,24 +19,6 @@ type Props = {
 const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef}: Props) => {
     const { powerSavingMode } = useStore()
     let throttle = useRef(true)
-    
-    useLayoutEffect(() => {
-        if(active){
-            requestAnimationFrame(() => {
-                imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
-                imageRef.current.style.transitionDuration = `700ms`
-            })
-        }else{
-            // let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
-            // let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-            // imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
-            setTimeout(() => {
-                requestAnimationFrame(() => {
-                    imageRef.current.style.transitionDuration = `75ms`
-                })
-            },700)
-        }
-    },[active])
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
         throttle.current = false
@@ -47,11 +29,10 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                 let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+                // imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
             }
         })
     }
-   
     useLayoutEffect(() => {
         window.addEventListener('scroll', pageScroll)
     },[])
