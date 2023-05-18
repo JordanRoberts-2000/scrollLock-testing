@@ -1,5 +1,6 @@
 'use client'
 
+import { useStore } from "@/zustand/store"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 import Image from "next/image"
 import { useEffect, useLayoutEffect, useRef } from "react"
@@ -14,6 +15,7 @@ type Props = {
 }
 
 const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index}: Props) => {
+    const { powerSavingMode } = useStore()
     let imageRef = useRef<any>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
     let throttle = useRef(true)
@@ -38,7 +40,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index}:
         }
     },[active])
     const pageScroll = () => {
-        if(!throttle.current || !imageRef.current)return
+        if(!throttle.current || !imageRef.current || powerSavingMode)return
         throttle.current = false
         setTimeout(() => {
             throttle.current = true

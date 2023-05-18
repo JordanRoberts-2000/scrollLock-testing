@@ -6,6 +6,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import Footer from './Components/Footer/Footer'
 import Category from './Components/Category/Category'
 import detectPowerSavingMode from '../utils/powersavingMode'
+import { useStore } from '@/zustand/store'
 // import video from '../public/'
 // import eep from '../video/eep.mp4'
 
@@ -17,11 +18,11 @@ export default function Home() {
     }
     const detectPower = async () => {
         let power = await detectPowerSavingMode()
-        // if(power){
-        //     alert('powersaving mode detected')
-        // }else{
-        //     alert('no powersaving mode detected')
-        // }
+        if(power){
+            useStore.setState(() => ({ powerSavingMode: true}))
+        }else{
+            useStore.setState(() => ({ powerSavingMode: false}))
+        }
     }
     useLayoutEffect(() => {
         // document.body.scrollTop = document.documentElement.scrollTop = 0;

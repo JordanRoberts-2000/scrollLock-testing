@@ -41,36 +41,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
-    function getScrollParent(node: Element): Element {
-        if (isScrollable(node)) {
-          node = node.parentElement!;
-        }
-      
-        while (node && !isScrollable(node)) {
-          node = node.parentElement!;
-        }
-      
-        return node || document.scrollingElement || document.documentElement;
-      }
-      
-      function isScrollable(node: Element): boolean {
-        let style = window.getComputedStyle(node);
-        return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
-      }
-    let onTouchMove = useCallback(( e: TouchEvent) => {
-        e.preventDefault();
-    //     let scrollable = getScrollParent(e.target as Element)
-    //   if ((scrollable === document.documentElement || scrollable === document.body) && document.documentElement.style.overflow === 'hidden') {
-    //     console.log('scrolling body')
-    //     if (e.cancelable) {
-    //         e.preventDefault();
-    //      }
-    //     return;
-    //   }
-    },[])
-    let onTouchStart = (e: TouchEvent) => {
-        e.preventDefault()
-    }
     const handleSelected = () => {
         if(active)return
         requestAnimationFrame(() => {
@@ -78,17 +48,15 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             document.documentElement.style.overflow = 'hidden'
             document.documentElement.style.touchAction = 'none'
         })
-        // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
-        // document.addEventListener('touchmove', onTouchMove)
-        // document.addEventListener('touchstart', onTouchStart)
-        // document.addEventListener('touchend', onTouchStart)
         useStore.setState(() => ({ categoryClicked: title }))
         setPriceActive(false)
+        let scrollDelay = 0
+        if(categoryScrollRef.current!.scrollTop >= 1)scrollDelay = 250
+        if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
         setTimeout(() => {
             categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             setPriceActive(false)
             setTimeout(() => {
-                console.log(categoryRef.current!.getBoundingClientRect().top)
                 if(categoryRef.current!.getBoundingClientRect().top < 1){
                     setActive(true)
                 }else{
@@ -97,7 +65,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     document.documentElement.style.overflow = 'auto'
                     document.documentElement.style.touchAction = 'auto'
                 }
-            }, 600)
+            }, scrollDelay)
         }, 10)
     }
     const handleExit = () => {
@@ -111,7 +79,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
         if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
-        // categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
         setTimeout(() => {
             useStore.setState(() => ({categoryClicked: ""}))
             setActive(false)

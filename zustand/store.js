@@ -5,5 +5,6 @@ export const useStore = create((set) => ({
     termsImageLoaded: false,
     bodyLocked: false,
     categoryClicked: '',
+    powerSavingMode: false
     }
 ))
