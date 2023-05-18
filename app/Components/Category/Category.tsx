@@ -42,6 +42,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
+    const [infoActive, setInfoActive] = useState(false)
     const imageAdjust = () => {
         let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
         let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
@@ -69,6 +70,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
                     setActive(true)
+                    setInfoActive(true)
                     imageRef.current.style.transform = `translate(0, 0) scale(1)`
                     imageRef.current.style.transitionDuration = `700ms`
                     document.documentElement.style.paddingRight = `0px`
@@ -100,6 +102,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
                     clearInterval(checkTop)
+                    setInfoActive(false)
                     imageRef.current.style.transitionDuration = `700ms`
                     imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                     setTimeout(() => {
@@ -142,7 +145,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`${categoryClicked !== '' ? 'duration-[500ms]' : 'duration-[500ms]'} grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                <div className={`grid transition-[grid-template-rows,500ms] ${!infoActive ? 'grid-rows-[0fr] duration-[700ms]' : 'grid-rows-[1fr] duration-500'}`}>
                     <div className="overflow-hidden">
                         {children}
                     </div>
