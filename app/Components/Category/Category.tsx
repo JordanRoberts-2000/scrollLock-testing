@@ -103,6 +103,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     clearInterval(checkTop)
                     setPriceActive(true)
                     scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                    imageRef.current.style.transitionDuration = `150ms`
                     setTimeout(() => {
                         document.documentElement.style.paddingRight = `0px`
                         document.documentElement.style.overflow = 'auto'
@@ -138,7 +140,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                <div className={`grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[0fr]'}`}>
                     <div className="overflow-hidden">
                         {/* <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium magni odit repudiandae, maxime, nemo quos voluptatum dignissimos vitae, aperiam quidem necessitatibus id at voluptas beatae illum labore impedit ad.</div> */}
                         {children}
