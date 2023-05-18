@@ -38,6 +38,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let imageRef = useRef<any>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
     let categoryScrollRef = useRef<HTMLDivElement>(null)
+    let infoSectionWrapper = useRef<HTMLDivElement>(null)
     let transitioning = useRef(false)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
@@ -70,12 +71,14 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
                     setActive(true)
-                    setInfoActive(true)
-                    imageRef.current.style.transform = `translate(0, 0) scale(1)`
-                    imageRef.current.style.transitionDuration = `700ms`
-                    document.documentElement.style.paddingRight = `0px`
-                    document.documentElement.style.overflow = 'hidden'
-                    document.documentElement.style.touchAction = 'none'
+                    requestAnimationFrame(() => {
+                        infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                        imageRef.current.style.transitionDuration = `700ms`
+                        document.documentElement.style.paddingRight = `0px`
+                        document.documentElement.style.overflow = 'hidden'
+                        document.documentElement.style.touchAction = 'none'
+                    })
                     setTimeout(() => {
                         transitioning.current = false
                     },700)
@@ -102,9 +105,11 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
                     clearInterval(checkTop)
-                    setInfoActive(false)
-                    imageRef.current.style.transitionDuration = `700ms`
-                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                    requestAnimationFrame(() => {
+                        infoSectionWrapper.current!.style.gridTemplateRows = '0fr'
+                        imageRef.current.style.transitionDuration = `700ms`
+                        imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                    })
                     setTimeout(() => {
                         setActive(false)
                         setPriceActive(true)
@@ -145,7 +150,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`grid transition-[grid-template-rows,500ms] ${!infoActive ? 'grid-rows-[0fr] duration-[700ms]' : 'grid-rows-[1fr] duration-500'}`}>
+                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-300`}>
                     <div className="overflow-hidden">
                         {children}
                     </div>
