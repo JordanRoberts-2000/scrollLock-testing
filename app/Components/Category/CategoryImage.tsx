@@ -23,13 +23,13 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     useLayoutEffect(() => {
         if(active){
             requestAnimationFrame(() => {
-                imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                 imageRef.current.style.transitionDuration = `700ms`
             })
         }else{
-            let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
-            let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-            imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+            // let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
+            // let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+            // imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
             setTimeout(() => {
                 requestAnimationFrame(() => {
                     imageRef.current.style.transitionDuration = `75ms`

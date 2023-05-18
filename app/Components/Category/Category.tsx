@@ -98,7 +98,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         let timer = 0
                         const adjusting = setInterval(() => {
                             timer += 10
-                            imageAdjust()
+                            // imageAdjust()
                             if(timer >= 150)clearInterval(adjusting)
                         },10)
                         setTimeout(() => {
