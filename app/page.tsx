@@ -20,20 +20,21 @@ export default function Home() {
         let power = await detectPowerSavingMode()
         if(power){
             useStore.setState(() => ({ powerSavingMode: true}))
-            // alert('power saving detcted')
+            alert('power saving detcted')
         }else{
-             useStore.setState(() => ({ powerSavingMode: true}))
+             useStore.setState(() => ({ powerSavingMode: false}))
         }
     }
     useLayoutEffect(() => {
         // document.body.scrollTop = document.documentElement.scrollTop = 0;
         // let power =
         detectPower()
-        // videoRef.current!.play()
-        // .then(() => {})
-        //  .catch((error) => {
-        //     alert(error)
-        // })
+        videoRef.current!.play()
+        .then(() => {})
+         .catch((error) => {
+            alert(error)
+            useStore.setState(() => ({ powerSavingMode: true}))
+        })
     },[])
     return (
         <>

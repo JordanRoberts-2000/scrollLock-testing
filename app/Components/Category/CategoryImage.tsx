@@ -59,7 +59,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index}:
     },[])
     return (
         <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
-            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`object-cover scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
+            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
             <div className="absolute top-[50%] lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20">
                 {/* <RiseFade duration={0.6} delay={index <= 1 ? 1.2 : 0} awaitPreload={index <= 1}> */}
                     <h3 className="text-4xl lg:text-7xl font-playfairDisplay font-[600] italic">{title}</h3>
