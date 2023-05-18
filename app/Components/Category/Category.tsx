@@ -36,6 +36,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let categoryRef = useRef<HTMLLIElement>(null)
     let scrollUpRef = useRef<HTMLDivElement>(null)
     let lastY = useRef(0);
+    let hmmtest = useRef(0)
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
@@ -86,6 +87,13 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             categoryClicked: title,
         }))
         let amountTravelled = 1
+        if(hmmtest.current === 1){
+            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            setTimeout(() => {
+                setActive(true)
+            }, 400)
+        }
+        hmmtest.current += 1
         let scrollAmount = categoryRef.current!.getBoundingClientRect().top
         let foop = categoryRef.current!.getBoundingClientRect().top
         scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
@@ -112,7 +120,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         // },1)
         // })
         setTimeout(() => {
-            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
             // const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
             // window.scroll({
@@ -120,34 +128,32 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             // behavior: 'smooth'
             // });
             
-            setTimeout(() => {
-                setActive(true)
-            }, 400)
+           
         },50)
     }
     const handleExit = () => {
-    //     if(!active)return
-    //     document.removeEventListener('touchmove', onTouchMove)
-    //     document.documentElement.style.paddingRight = `0px`
-    //     document.documentElement.style.overflow = 'auto'
-    //     setBodyLockedDisabled(true)
-    //     document.documentElement.style.touchAction = 'autoy'
-    //     let scrollDelay = 0
-    //     if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
-    //     if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
-    //     categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
-    //     setTimeout(() => {
-    //         useStore.setState(() => ({categoryClicked: ""}))
-    //         setActive(false)
-    //         setTimeout(() => {
-    //             setPriceActive(true)
+        if(!active)return
+        // document.removeEventListener('touchmove', onTouchMove)
+        // document.documentElement.style.paddingRight = `0px`
+        // document.documentElement.style.overflow = 'auto'
+        // setBodyLockedDisabled(true)
+        document.documentElement.style.touchAction = 'autoy'
+        let scrollDelay = 0
+        if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
+        if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
+        categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
+        setTimeout(() => {
+            useStore.setState(() => ({categoryClicked: ""}))
+            setActive(false)
+            setTimeout(() => {
+                setPriceActive(true)
                 
-    //             scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
-    //             setTimeout(() => {
-    //                 useStore.setState((set: any) => ({bodyLocked: false}))
-    //             }, 200)
-    //         }, 400)
-    //     }, scrollDelay)
+                scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                setTimeout(() => {
+                    useStore.setState((set: any) => ({bodyLocked: false}))
+                }, 200)
+            }, 400)
+        }, scrollDelay)
     }
     return (
         <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain touch-none`} onClick={() => handleSelected()}>
