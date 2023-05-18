@@ -44,7 +44,7 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                             <h5 className="font-playfairDisplay font-[800] text-2xl pl-3 w-fit z-10">Includes:</h5>
                             {included.map((data, index) => (
                                 // <RiseFade key={index} duration={.6} awaitPreload={false} className="z-10" wrapperClassName="z-10">
-                                    <div className={`${index === included.length - 1 && 'lg:pb-4'} text-xl font-playfairDisplay font-[600] ml-2 z-10`}>{`- ${data}`}</div>
+                                    <div key={index} className={`${index === included.length - 1 && 'lg:pb-4'} text-xl font-playfairDisplay font-[600] ml-2 z-10`}>{`- ${data}`}</div>
                                 // {/* </RiseFade> */}
                             ))}
                             <div className="flex mt-6 z-10 lg:mt-auto">
