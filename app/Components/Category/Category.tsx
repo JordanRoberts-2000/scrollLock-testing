@@ -126,28 +126,28 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         },50)
     }
     const handleExit = () => {
-        if(!active)return
-        // document.removeEventListener('touchmove', onTouchMove)
-        // document.documentElement.style.paddingRight = `0px`
-        // document.documentElement.style.overflow = 'auto'
-        // setBodyLockedDisabled(true)
-        document.documentElement.style.touchAction = 'autoy'
-        let scrollDelay = 0
-        if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
-        if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
-        categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
-        setTimeout(() => {
-            useStore.setState(() => ({categoryClicked: ""}))
-            setActive(false)
-            setTimeout(() => {
-                setPriceActive(true)
+    //     if(!active)return
+    //     document.removeEventListener('touchmove', onTouchMove)
+    //     document.documentElement.style.paddingRight = `0px`
+    //     document.documentElement.style.overflow = 'auto'
+    //     setBodyLockedDisabled(true)
+    //     document.documentElement.style.touchAction = 'autoy'
+    //     let scrollDelay = 0
+    //     if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
+    //     if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
+    //     categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
+    //     setTimeout(() => {
+    //         useStore.setState(() => ({categoryClicked: ""}))
+    //         setActive(false)
+    //         setTimeout(() => {
+    //             setPriceActive(true)
                 
-                scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
-                setTimeout(() => {
-                    useStore.setState((set: any) => ({bodyLocked: false}))
-                }, 200)
-            }, 400)
-        }, scrollDelay)
+    //             scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+    //             setTimeout(() => {
+    //                 useStore.setState((set: any) => ({bodyLocked: false}))
+    //             }, 200)
+    //         }, 400)
+    //     }, scrollDelay)
     }
     return (
         <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain touch-none`} onClick={() => handleSelected()}>
