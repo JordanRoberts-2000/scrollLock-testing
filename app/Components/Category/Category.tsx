@@ -88,10 +88,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         }))
         let amountTravelled = 1
         if(hmmtest.current === 1){
-            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
-            setTimeout(() => {
-                setActive(true)
-            }, 400)
+            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+           
         }
         hmmtest.current += 1
         let scrollAmount = categoryRef.current!.getBoundingClientRect().top
@@ -99,26 +97,26 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
         console.log(scrollAmount, 'sroll', (-1 * -1))
         setPriceActive(false)
-        // requestAnimationFrame(() => {
-        // const scrollingUp = setInterval(() => {
-        //     if(scrollAmount >= 0){
-        //         console.log(scrollAmount)
-        //         scrollAmount >= amountTravelled ? scrollAmount -= amountTravelled : scrollAmount -= scrollAmount
-        //         scrollBy(0,scrollAmount >= amountTravelled ? amountTravelled : scrollAmount)
-        //     }else{
-        //         console.log(scrollAmount)
-        //         scrollAmount <= -amountTravelled ? scrollAmount += amountTravelled : scrollAmount += (scrollAmount * -1)
-        //         scrollBy(0,scrollAmount <= -amountTravelled ? -amountTravelled : -scrollAmount)
-        //     }
-        //     if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
-        //         clearInterval(scrollingUp)
-        //         setTimeout(() => {
-        //             setActive(true)
-        //             alert(foop)
-        //         }, 100)
-        //     }
-        // },1)
-        // })
+        requestAnimationFrame(() => {
+        const scrollingUp = setInterval(() => {
+            if(scrollAmount >= 0){
+                console.log(scrollAmount)
+                scrollAmount >= amountTravelled ? scrollAmount -= amountTravelled : scrollAmount -= scrollAmount
+                scrollBy(0,scrollAmount >= amountTravelled ? amountTravelled : scrollAmount)
+            }else{
+                console.log(scrollAmount)
+                scrollAmount <= -amountTravelled ? scrollAmount += amountTravelled : scrollAmount += (scrollAmount * -1)
+                scrollBy(0,scrollAmount <= -amountTravelled ? -amountTravelled : -scrollAmount)
+            }
+            if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
+                clearInterval(scrollingUp)
+                setTimeout(() => {
+                    setActive(true)
+                    alert(foop)
+                }, 100)
+            }
+        },1)
+        })
         setTimeout(() => {
             // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
@@ -127,7 +125,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             // top: y,
             // behavior: 'smooth'
             // });
-            
+            setTimeout(() => {
+                setActive(true)
+            }, 400)
            
         },50)
     }

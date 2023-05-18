@@ -17,11 +17,11 @@ export default function Home() {
     }
     const detectPower = async () => {
         let power = await detectPowerSavingMode()
-        // if(power){
-        //     alert('powersaving mode detected')
-        // }else{
-        //     alert('no powersaving mode detected')
-        // }
+        if(power){
+            alert('powersaving mode detected')
+        }else{
+            alert('no powersaving mode detected')
+        }
     }
     useLayoutEffect(() => {
         // document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -30,7 +30,7 @@ export default function Home() {
         videoRef.current!.play()
         .then(() => {})
          .catch((error) => {
-            // alert(error)
+            alert(error)
         })
     },[])
     return (
@@ -41,7 +41,7 @@ export default function Home() {
                     <Image alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684205919/epavcxsimcv1pqe6mriz.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
                 </main>
             </div>
-            <video ref={videoRef} width="750" height="500" controls muted className='hidden'>
+            <video ref={videoRef} width="750" height="500" controls muted playsInline className='hidden'>
                 <source src={'/powerSaving.mp4'} type="video/mp4"/>
             </video>
             <section className="pb-4 bg-white lg:flex-[9]">
