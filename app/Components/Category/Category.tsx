@@ -99,19 +99,21 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 const categoryTopPosition = categoryScrollRef.current!.scrollTop
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
-                    setActive(false)
                     clearInterval(checkTop)
-                    setPriceActive(true)
-                    scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                    imageRef.current.style.transitionDuration = `700ms`
                     imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
-                    imageRef.current.style.transitionDuration = `150ms`
                     setTimeout(() => {
-                        document.documentElement.style.paddingRight = `0px`
-                        document.documentElement.style.overflow = 'auto'
-                        document.documentElement.style.touchAction = 'auto'
-                        useStore.setState(() => ({categoryClicked: ""}))
-                        transitioning.current = false
-                    },150)
+                        setActive(false)
+                        setPriceActive(true)
+                        scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                        setTimeout(() => {
+                            document.documentElement.style.paddingRight = `0px`
+                            document.documentElement.style.overflow = 'auto'
+                            document.documentElement.style.touchAction = 'auto'
+                            useStore.setState(() => ({categoryClicked: ""}))
+                            transitioning.current = false
+                        },150)
+                    },400)
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
@@ -140,8 +142,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[0fr]'}`}>
-                    <div className="overflow-hidden">
+                <div className={`grid transition-[grid-template-rows,500ms] duration-500 ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                    <div className="overflow-hidden duration-1000">
                         {/* <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium magni odit repudiandae, maxime, nemo quos voluptatum dignissimos vitae, aperiam quidem necessitatibus id at voluptas beatae illum labore impedit ad.</div> */}
                         {children}
                     </div>
