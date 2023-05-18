@@ -28,11 +28,11 @@ export default function Home() {
     useLayoutEffect(() => {
         // document.body.scrollTop = document.documentElement.scrollTop = 0;
         // let power =
-        detectPower()
+        // detectPower()
         videoRef.current!.play()
         .then(() => {})
          .catch((error) => {
-            alert(error)
+            // alert(error)
             useStore.setState(() => ({ powerSavingMode: true}))
         })
     },[])

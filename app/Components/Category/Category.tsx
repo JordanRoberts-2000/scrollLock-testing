@@ -35,12 +35,17 @@ type Props = {
 const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryImageUrls, blurImageUrl, index}: Props) => {
     let categoryRef = useRef<HTMLLIElement>(null)
     let scrollUpRef = useRef<HTMLDivElement>(null)
-    let lastY = useRef(0);
-    let hmmtest = useRef(0)
+    let imageRef = useRef<any>(null)
+    let imageWrapperRef = useRef<HTMLDivElement>(null)
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
+    const imageAdjust = () => {
+        let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
+        let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+        return imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+    }
     const handleSelected = () => {
         if(categoryClicked !== "")return
         // Stage one
@@ -91,6 +96,12 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     setTimeout(() => {
                         setPriceActive(true)
                         scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                        let timer = 0
+                        const adjusting = setInterval(() => {
+                            timer += 10
+                            imageAdjust()
+                            if(timer >= 150)clearInterval(adjusting)
+                        },10)
                         setTimeout(() => {
                             document.documentElement.style.paddingRight = `0px`
                             document.documentElement.style.overflow = 'auto'
@@ -106,16 +117,16 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         }, 10)
     }
     return (
-        <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain`} onClick={() => handleSelected()}>
+        <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain select-none`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
             <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-hidden aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-auto"} mx-auto
-            ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid overscroll-contain lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
+            ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid overscroll-contain select-none lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
                 {/* Image/Gallery */}
                 <div className="w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative mb-4" onClick={() => handleExit()}>
-                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl}/>
+                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef}/>
                     <div className="absolute top-0 w-full h-full bg-white/40"></div>
                     
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
