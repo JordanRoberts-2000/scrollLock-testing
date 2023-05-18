@@ -73,6 +73,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     setActive(true)
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                        infoSectionWrapper.current!.style.transitionDuration = `600ms`
                         imageRef.current.style.transform = `translate(0, 0) scale(1)`
                         imageRef.current.style.transitionDuration = `700ms`
                         document.documentElement.style.paddingRight = `0px`
@@ -107,6 +108,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     clearInterval(checkTop)
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.gridTemplateRows = '0fr'
+                        infoSectionWrapper.current!.style.transitionDuration = `300ms`
                         imageRef.current.style.transitionDuration = `700ms`
                         imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                     })
@@ -150,7 +152,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-300`}>
+                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms]`}>
                     <div className="overflow-hidden">
                         {children}
                     </div>
