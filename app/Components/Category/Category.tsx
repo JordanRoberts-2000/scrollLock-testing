@@ -142,9 +142,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`${categoryClicked !== '' ? 'duration-150' : 'duration-500'} grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                <div className={`${categoryClicked !== '' ? 'duration-[500ms]' : 'duration-[500ms]'} grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
                     <div className="overflow-hidden">
-                        {/* <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium magni odit repudiandae, maxime, nemo quos voluptatum dignissimos vitae, aperiam quidem necessitatibus id at voluptas beatae illum labore impedit ad.</div> */}
                         {children}
                     </div>
                 </div>
