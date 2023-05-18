@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='touch-none'>
-        <body className={`${playfairDisplay.variable} ${openSans.variable} touch-none`}>
+    <html lang="en">
+        <body className={`${playfairDisplay.variable} ${openSans.variable}`}>
             <Header/>
             {children}
         </body>

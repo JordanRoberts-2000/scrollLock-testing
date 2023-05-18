@@ -73,8 +73,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const handleSelected = () => {
         if(active)return
         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        document.documentElement.style.overflow = 'hidden'
-        document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
+        // document.documentElement.style.overflow = 'hidden'
+        document.documentElement.style.touchAction = 'none'
+        // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
         // document.addEventListener('touchmove', onTouchMove)
         // document.addEventListener('touchstart', onTouchStart)
         // document.addEventListener('touchend', onTouchStart)
@@ -127,6 +128,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         // document.documentElement.style.paddingRight = `0px`
         // document.documentElement.style.overflow = 'auto'
         // setBodyLockedDisabled(true)
+        document.documentElement.style.touchAction = 'auto'
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
         if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
