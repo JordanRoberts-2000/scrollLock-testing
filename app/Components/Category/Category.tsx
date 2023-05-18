@@ -42,7 +42,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
     const handleSelected = () => {
-        if(active)return
+        if(categoryClicked !== "")return
         requestAnimationFrame(() => {
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
             document.documentElement.style.overflow = 'hidden'
@@ -51,21 +51,43 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         useStore.setState(() => ({ categoryClicked: title }))
         setPriceActive(false)
         let scrollDelay = 0
-        if(categoryScrollRef.current!.scrollTop >= 1)scrollDelay = 250
-        if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
+        const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
+        let timer = 0
+       
+        if(categoryTopPosition >= 100 )scrollDelay = 250
+        if(categoryTopPosition > window.innerHeight/2)scrollDelay = 550
+        console.log(scrollDelay, categoryScrollRef.current!.scrollTop >= 1)
         setTimeout(() => {
             categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             setPriceActive(false)
-            setTimeout(() => {
-                if(categoryRef.current!.getBoundingClientRect().top < 1){
+            const checkTop = setInterval(() => {
+                timer += 10
+                const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
+                if(categoryTopPosition < 1 && categoryTopPosition > -1){
+                    console.log('here')
                     setActive(true)
-                }else{
+                    clearInterval(checkTop)
+                }
+                if(timer >= 600){
+                    console.log('cancel')
                     useStore.setState(() => ({ categoryClicked: "" }))
                     document.documentElement.style.paddingRight = `0px`
                     document.documentElement.style.overflow = 'auto'
                     document.documentElement.style.touchAction = 'auto'
+                    clearInterval(checkTop)
                 }
-            }, scrollDelay)
+            }, 10)
+            // setTimeout(() => {
+            //     if(categoryRef.current!.getBoundingClientRect().top < 1){
+            //         setActive(true)
+            //     }else{
+            //         useStore.setState(() => ({ categoryClicked: "" }))
+            //         document.documentElement.style.paddingRight = `0px`
+            //         document.documentElement.style.overflow = 'auto'
+            //         document.documentElement.style.touchAction = 'auto'
+            //     }
+            //     console.log(scrollDelay, categoryScrollRef.current!.scrollTop >= 1)
+            // }, 600)
         }, 10)
     }
     const handleExit = () => {
