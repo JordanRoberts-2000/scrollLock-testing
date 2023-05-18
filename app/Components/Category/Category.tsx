@@ -43,6 +43,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [priceActive, setPriceActive] = useState(true)
     const handleSelected = () => {
         if(categoryClicked !== "")return
+        // Stage one
         requestAnimationFrame(() => {
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
             document.documentElement.style.overflow = 'hidden'
@@ -50,26 +51,20 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         })
         useStore.setState(() => ({ categoryClicked: title }))
         setPriceActive(false)
-        let scrollDelay = 0
-        const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
-        let timer = 0
-       
-        if(categoryTopPosition >= 100 )scrollDelay = 250
-        if(categoryTopPosition > window.innerHeight/2)scrollDelay = 550
-        console.log(scrollDelay, categoryScrollRef.current!.scrollTop >= 1)
+        // Stage 2
         setTimeout(() => {
-            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
-            setPriceActive(false)
+            categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
+            let timer = 0
             const checkTop = setInterval(() => {
                 timer += 10
                 const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
-                    console.log('here')
+                    // Stage 3 - success
                     setActive(true)
                     clearInterval(checkTop)
                 }
                 if(timer >= 600){
-                    console.log('cancel')
+                    // Stage 3 - cancel
                     useStore.setState(() => ({ categoryClicked: "" }))
                     document.documentElement.style.paddingRight = `0px`
                     document.documentElement.style.overflow = 'auto'
@@ -77,38 +72,38 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     clearInterval(checkTop)
                 }
             }, 10)
-            // setTimeout(() => {
-            //     if(categoryRef.current!.getBoundingClientRect().top < 1){
-            //         setActive(true)
-            //     }else{
-            //         useStore.setState(() => ({ categoryClicked: "" }))
-            //         document.documentElement.style.paddingRight = `0px`
-            //         document.documentElement.style.overflow = 'auto'
-            //         document.documentElement.style.touchAction = 'auto'
-            //     }
-            //     console.log(scrollDelay, categoryScrollRef.current!.scrollTop >= 1)
-            // }, 600)
         }, 10)
     }
     const handleExit = () => {
         if(!active)return
-        // document.removeEventListener('touchmove', onTouchMove)
-        
-        // setBodyLockedDisabled(true)
-        document.documentElement.style.paddingRight = `0px`
-        document.documentElement.style.overflow = 'auto'
-        document.documentElement.style.touchAction = 'auto'
-        let scrollDelay = 0
-        if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
-        if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
         setTimeout(() => {
-            useStore.setState(() => ({categoryClicked: ""}))
-            setActive(false)
-            setTimeout(() => {
-                setPriceActive(true)
-                scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
-            }, 400)
-        }, scrollDelay)
+            categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
+            let timer = 0
+            const checkTop = setInterval(() => {
+                timer += 10
+                const categoryTopPosition = categoryScrollRef.current!.scrollTop
+                console.log(categoryTopPosition)
+                if(categoryTopPosition < 1 && categoryTopPosition > -1){
+                    // Stage 3 - success
+                    setActive(false)
+                    clearInterval(checkTop)
+                    useStore.setState(() => ({categoryClicked: ""}))
+                    setTimeout(() => {
+                        setPriceActive(true)
+                        scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                        setTimeout(() => {
+                            document.documentElement.style.paddingRight = `0px`
+                            document.documentElement.style.overflow = 'auto'
+                            document.documentElement.style.touchAction = 'auto'
+                        },150)
+                    }, 400)
+                }
+                if(timer >= 600){
+                    // Stage 3 - cancel
+                    clearInterval(checkTop)
+                }
+            }, 10)
+        }, 10)
     }
     return (
         <li ref={categoryRef} className={`bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain`} onClick={() => handleSelected()}>

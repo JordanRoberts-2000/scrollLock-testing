@@ -20,8 +20,9 @@ export default function Home() {
         let power = await detectPowerSavingMode()
         if(power){
             useStore.setState(() => ({ powerSavingMode: true}))
+            alert('power saving detcted')
         }else{
-            useStore.setState(() => ({ powerSavingMode: false}))
+             useStore.setState(() => ({ powerSavingMode: true}))
         }
     }
     useLayoutEffect(() => {
