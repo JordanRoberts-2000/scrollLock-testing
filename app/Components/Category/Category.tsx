@@ -72,10 +72,12 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleSelected = () => {
         if(active)return
-        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        document.documentElement.style.overflow = 'hidden'
-        document.documentElement.style.touchAction = 'none'
-        document.body.style.backgroundColor = 'red'
+        requestAnimationFrame(() => {
+            document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+            document.documentElement.style.overflow = 'hidden'
+            document.documentElement.style.touchAction = 'none'
+            document.body.style.backgroundColor = 'red'
+        })
         // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
         // document.addEventListener('touchmove', onTouchMove)
         // document.addEventListener('touchstart', onTouchStart)
@@ -121,7 +123,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             setTimeout(() => {
                 setActive(true)
             }, 400)
-        },2000)
+        },50)
     }
     const handleExit = () => {
         if(!active)return
