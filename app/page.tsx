@@ -36,12 +36,12 @@ export default function Home() {
     return (
         <>
             <div className={`${loaded ? "h-0" : "h-[100lvh]"} bg-gray-200 duration-500 fixed bottom-0 left-0 w-full`}></div>
-            <div className='h-screen'>
+            <div className=''>
                 <main className={`${loaded ? "translate-y-[-50px]" : 'translate-y-[0]'} transition duration-1000 h-[calc(35vh+50px)] bg-pink-500 relative lg:h-[calc(100vh+50px)]`}>
                     <Image alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684205919/epavcxsimcv1pqe6mriz.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
                 </main>
             </div>
-            <video ref={videoRef} width="750" height="500" controls muted>
+            <video ref={videoRef} width="750" height="500" controls muted className='hidden'>
                 <source src={'/powerSaving.mp4'} type="video/mp4"/>
             </video>
             <section className="pb-4 bg-white lg:flex-[9]">

@@ -87,28 +87,28 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
         console.log(scrollAmount, 'sroll', (-1 * -1))
         setPriceActive(false)
-        requestAnimationFrame(() => {
-        const scrollingUp = setInterval(() => {
-            if(scrollAmount >= 0){
-                console.log(scrollAmount)
-                scrollAmount >= amountTravelled ? scrollAmount -= amountTravelled : scrollAmount -= scrollAmount
-                scrollBy(0,scrollAmount >= amountTravelled ? amountTravelled : scrollAmount)
-            }else{
-                console.log(scrollAmount)
-                scrollAmount <= -amountTravelled ? scrollAmount += amountTravelled : scrollAmount += (scrollAmount * -1)
-                scrollBy(0,scrollAmount <= -amountTravelled ? -amountTravelled : -scrollAmount)
-            }
-            if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
-                clearInterval(scrollingUp)
-                setTimeout(() => {
-                    setActive(true)
-                    alert(foop)
-                }, 100)
-            }
-        },1)
-        })
+        // requestAnimationFrame(() => {
+        // const scrollingUp = setInterval(() => {
+        //     if(scrollAmount >= 0){
+        //         console.log(scrollAmount)
+        //         scrollAmount >= amountTravelled ? scrollAmount -= amountTravelled : scrollAmount -= scrollAmount
+        //         scrollBy(0,scrollAmount >= amountTravelled ? amountTravelled : scrollAmount)
+        //     }else{
+        //         console.log(scrollAmount)
+        //         scrollAmount <= -amountTravelled ? scrollAmount += amountTravelled : scrollAmount += (scrollAmount * -1)
+        //         scrollBy(0,scrollAmount <= -amountTravelled ? -amountTravelled : -scrollAmount)
+        //     }
+        //     if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
+        //         clearInterval(scrollingUp)
+        //         setTimeout(() => {
+        //             setActive(true)
+        //             alert(foop)
+        //         }, 100)
+        //     }
+        // },1)
+        // })
         setTimeout(() => {
-            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
             // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
             // const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
             // window.scroll({
@@ -117,7 +117,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             // });
             
             setTimeout(() => {
-                
+                setActive(true)
             }, 400)
         },10)
     }
@@ -150,7 +150,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-            <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-hidden aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-hidden"} mx-auto
+            <div ref={categoryScrollRef} className={`${!active ? "overflow-hidden lg:overflow-hidden aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh] overflow-auto"} mx-auto
             ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} lg:grid overscroll-contain lg:pt-4 grid-cols-[2fr,1fr] auto-rows-min`}>
                 {/* Image/Gallery */}
                 <div className="w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative mb-4" onClick={() => handleExit()}>
