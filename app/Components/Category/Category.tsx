@@ -142,17 +142,17 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`grid transition-[grid-template-rows,500ms] duration-500 ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
-                    <div className="overflow-hidden duration-1000">
+                <div className={`${categoryClicked !== '' ? 'duration-150' : 'duration-500'} grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                    <div className="overflow-hidden">
                         {/* <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium magni odit repudiandae, maxime, nemo quos voluptatum dignissimos vitae, aperiam quidem necessitatibus id at voluptas beatae illum labore impedit ad.</div> */}
                         {children}
                     </div>
                 </div>
             </div>
-            {/* <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-0 lg:opacity-100'}
+            <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-0 lg:opacity-100'}
                            duration-200 z-30 absolute bottom-0 left-[-2rem] mb-4 pl-12 py-1 bg-black text-white px-4 text-xl font-playfairDisplay italic`}>
                 {`from £${priceOptions[0].price}`}
-            </div> */}
+            </div>
         </li>
     )
 }
