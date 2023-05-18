@@ -7,6 +7,7 @@ import Footer from './Components/Footer/Footer'
 import Category from './Components/Category/Category'
 import detectPowerSavingMode from '../utils/powersavingMode'
 import { useStore } from '@/zustand/store'
+import InfoSection from './Components/Category/InfoSection'
 // import video from '../public/'
 // import eep from '../video/eep.mp4'
 
@@ -52,10 +53,7 @@ export default function Home() {
                     {pageData.map(({imageUrl, title, subtitle, priceOptions, reviews, galleryImageUrls, blurImageUrl}, index) => (
                         <Category key={title} imageUrl={imageUrl} title={title} subtitle={subtitle} priceOptions={priceOptions} 
                                     galleryImageUrls={galleryImageUrls} index={index} blurImageUrl={blurImageUrl}>
-                            <div className='h-[200vh]'>
-
-                            </div>
-                            {/* <InfoSection priceOptions={priceOptions} reviews={reviews}/> */}
+                            <InfoSection priceOptions={priceOptions} reviews={reviews}/>
                         </Category>
                     ))}
                 </ul>
