@@ -102,7 +102,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     setActive(false)
                     clearInterval(checkTop)
                     setPriceActive(true)
-                    // scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                    scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
                     setTimeout(() => {
                         document.documentElement.style.paddingRight = `0px`
                         document.documentElement.style.overflow = 'auto'
@@ -126,9 +126,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <div ref={categoryScrollRef} className={`
-                    ${!active ? " lg:overflow-hidden aspect-[3/2] lg:aspect-auto w-[95%] lg:w-full" : "w-full aspect-auto h-[100lvh]"} 
+                    ${!active ? "aspect-[3/2] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
-                    overscroll-contain duration-500 select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto
+                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto
                     lg:grid lg:pt-4`}>
                 {/* Image/Gallery */}
                 <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative`} onClick={() => handleExit()}>
@@ -138,7 +138,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div className={`grid transition-[grid-template-rows,1000ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
+                <div className={`grid transition-[grid-template-rows,500ms] ${!active ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'}`}>
                     <div className="overflow-hidden">
                         {/* <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laudantium magni odit repudiandae, maxime, nemo quos voluptatum dignissimos vitae, aperiam quidem necessitatibus id at voluptas beatae illum labore impedit ad.</div> */}
                         {children}
