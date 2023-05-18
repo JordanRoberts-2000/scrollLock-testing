@@ -77,78 +77,48 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
             document.documentElement.style.overflow = 'hidden'
             document.documentElement.style.touchAction = 'none'
-            document.body.style.backgroundColor = 'red'
         })
         // document.addEventListener('touchmove', onTouchMove, {passive: false, capture: true})
         // document.addEventListener('touchmove', onTouchMove)
         // document.addEventListener('touchstart', onTouchStart)
         // document.addEventListener('touchend', onTouchStart)
-        useStore.setState(() => ({
-            categoryClicked: title,
-        }))
-        let amountTravelled = 1
-        if(hmmtest.current === 1){
-            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
-           
-        }
-        hmmtest.current += 1
-        let scrollAmount = categoryRef.current!.getBoundingClientRect().top
-        let foop = categoryRef.current!.getBoundingClientRect().top
-        scrollAmount >= 0 ? scrollAmount += 12 : scrollAmount -= 12
-        console.log(scrollAmount, 'sroll', (-1 * -1))
+        useStore.setState(() => ({ categoryClicked: title }))
         setPriceActive(false)
-        requestAnimationFrame(() => {
-        const scrollingUp = setInterval(() => {
-            if(scrollAmount >= 0){
-                console.log(scrollAmount)
-                scrollAmount >= amountTravelled ? scrollAmount -= amountTravelled : scrollAmount -= scrollAmount
-                scrollBy(0,scrollAmount >= amountTravelled ? amountTravelled : scrollAmount)
-            }else{
-                console.log(scrollAmount)
-                scrollAmount <= -amountTravelled ? scrollAmount += amountTravelled : scrollAmount += (scrollAmount * -1)
-                scrollBy(0,scrollAmount <= -amountTravelled ? -amountTravelled : -scrollAmount)
-            }
-            if(scrollAmount === 0 || scrollAmount < -2000 || scrollAmount > 2000){
-                clearInterval(scrollingUp)
-                setTimeout(() => {
-                    setActive(true)
-                    alert(foop)
-                }, 100)
-            }
-        },1)
-        })
         setTimeout(() => {
-            // categoryRef.current!.scrollIntoView({ behavior: "smooth"})
-            // window.scrollTo({ top: scrollUpRef.current!.getBoundingClientRect().y, behavior: 'smooth' })
-            // const y = categoryScrollRef.current!.getBoundingClientRect().top + window.scrollY;
-            // window.scroll({
-            // top: y,
-            // behavior: 'smooth'
-            // });
+            categoryRef.current!.scrollIntoView({ behavior: "smooth"})
+            setPriceActive(false)
             setTimeout(() => {
-                setActive(true)
-            }, 400)
-           
-        },50)
+                console.log(categoryRef.current!.getBoundingClientRect().top)
+                if(categoryRef.current!.getBoundingClientRect().top < 1){
+                    setActive(true)
+                }else{
+                    useStore.setState(() => ({ categoryClicked: "" }))
+                    document.documentElement.style.paddingRight = `0px`
+                    document.documentElement.style.overflow = 'auto'
+                    document.documentElement.style.touchAction = 'auto'
+                }
+            }, 600)
+        }, 10)
     }
     const handleExit = () => {
         if(!active)return
         // document.removeEventListener('touchmove', onTouchMove)
-        // document.documentElement.style.paddingRight = `0px`
-        // document.documentElement.style.overflow = 'auto'
+        
         // setBodyLockedDisabled(true)
-        document.documentElement.style.touchAction = 'autoy'
+        document.documentElement.style.paddingRight = `0px`
+        document.documentElement.style.overflow = 'auto'
+        document.documentElement.style.touchAction = 'auto'
         let scrollDelay = 0
         if(categoryScrollRef.current!.scrollTop > 0)scrollDelay = 250
         if(categoryScrollRef.current!.scrollTop > window.innerHeight)scrollDelay = 500
-        categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
+        // categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
         setTimeout(() => {
             useStore.setState(() => ({categoryClicked: ""}))
             setActive(false)
             setTimeout(() => {
                 setPriceActive(true)
                 
-                scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
+                // scrollUpRef.current!.scrollIntoView({ behavior: "smooth"})
                 setTimeout(() => {
                     useStore.setState((set: any) => ({bodyLocked: false}))
                 }, 200)
