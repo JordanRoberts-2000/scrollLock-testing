@@ -27,12 +27,14 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
         <>
              {/* Pricelist */}
              <div className="flex flex-col lg:col-span-2">
-                    <p className="mx-4 my-4 text-lg font-bold text-center">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi perspiciatis aliquam vel labore dolor dicta fugiat inventore aliquid, praesentium eius laborum odit accusantium adipisci sapiente delectus. Iusto aliquid sint eveniet.</p>
-                <div className="flex my-2 lg:my-0">
+                    <p className="mx-4 my-4 text-xl text-center uppercase font-light tracking-wide pb-8">
+                    Welcome to the thrilling world of jet ski adventures! Dive into the excitement and experience the ultimate aquatic thrill with our top-of-the-line jet ski hire service.
+                    </p>
+                {/* <div className="flex my-2 lg:my-0">
                     <div className="h-[2px] bg-black flex-1"></div>
                     <h3 className="mx-4 font-semibold font-playfairDisplay translate-y-[-50%] italic text-3xl backdrop-blur-sm">Price List</h3>
                     <div className="h-[2px] bg-black flex-1"></div>
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-8">
                     {priceOptions.map((data, index) => (
                         <PriceOption key={index} data={data}/>
