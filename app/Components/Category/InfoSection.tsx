@@ -39,15 +39,15 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                 </div>
             </div>
             {/* Reviews */}
-            <div className="flex flex-col pb-24 px-4 mt-8 lg:pb-4 lg:col-start-2 lg:row-start-1">
+            <div className="flex flex-col pb-24 px-4 mt-8 border-t-2 shadow-2xl pt-4">
                 {/* <Fade className="lg:!opacity-100"> */}
                     <div className="flex my-4">
-                        <div className="h-[2px] bg-black flex-1"></div>
-                        <h3 className="mx-4 font-semibold font-playfairDisplay translate-y-[-50%] italic text-2xl">Reviews</h3>
-                        <div className="h-[2px] bg-black flex-1"></div>
+                        {/* <div className="h-[2px] bg-black flex-1"></div> */}
+                        <h3 className="font-semibold font-playfairDisplay translate-y-[-50%] italic text-4xl">Reviews</h3>
+                        {/* <div className="h-[2px] bg-black flex-1"></div> */}
                     </div>
                     {reviews.map(({stars, reviewContent, reviewer, date}, index) => (
-                        (index < 2 && 
+                        (index < 1 && 
                         <div className={`${index === 1 ? 'lg:hidden flex' : 'flex'} flex-col`} key={index}>
                             <div className={`flex gap-1 mb-1`}>
                                 {[...Array(stars)].map((x, i) =>
@@ -60,7 +60,7 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                         )
                     ))}
                     <div className="flex lg:flex-gap-4">
-                        <button className="mb-4 w-fit mx-auto bg-black text-white font-bold text-xl py-1 px-4 rounded-md font-playfairDisplay">Read More Reviews</button>
+                        <button className="mb-4 w-fit mx-auto bg-black text-white font-bold text-xl py-1 px-4 rounded-md font-playfairDisplay">Read All Reviews</button>
                         <button className="mb-4 w-fit mx-auto border-black border-2 font-bold text-xl py-1 px-4 rounded-md font-playfairDisplay hidden lg:flex">Book Activity</button>
                     </div>
                 {/* </Fade> */}
