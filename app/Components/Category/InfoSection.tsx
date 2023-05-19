@@ -27,7 +27,7 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
         <>
              {/* Pricelist */}
              <div className="flex flex-col lg:col-span-2">
-                    <p className="mx-4 my-4 text-xl uppercase font-light tracking-wide pb-16">
+                    <p className="mx-4 my-4 text-xl uppercase font-light text-center tracking-wide pb-16">
                     Welcome to the thrilling world of jet ski adventures! Dive into the excitement and experience the ultimate aquatic thrill with our top-of-the-line jet ski hire service.
                     </p>
                 {/* <div className="flex my-2 lg:my-0">

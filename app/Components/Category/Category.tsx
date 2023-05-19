@@ -146,15 +146,15 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             <div ref={categoryScrollRef} className={`
                     ${!active ? "aspect-[3/2] lg:w-[30%] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
-                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto -z-20`}>
+                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
                 <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] mx-auto relative`} onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef}/>
                     <div className="absolute top-0 w-full h-full bg-white/40"></div>
                 </div>
                 {/* Info Section */}
-                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms]`}>
-                    <div className="overflow-hidden">
+                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
+                    <div className="overflow-hidden z-50 bg-white">
                         {children}
                     </div>
                 </div>
