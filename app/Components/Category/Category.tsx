@@ -59,6 +59,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             document.documentElement.style.touchAction = 'none'
         })
         setPriceActive(false)
+        useStore.setState(() => ({ footerExtended: true }))
         // Stage 2
         setTimeout(() => {
             categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
@@ -86,6 +87,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
+                    useStore.setState(() => ({ footerExtended: false }))
                     clearInterval(checkTop)
                     setPriceActive(true)
                     transitioning.current = false
@@ -99,6 +101,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const handleExit = () => {
         if(categoryClicked === "" || transitioning.current)return
         transitioning.current = true
+        useStore.setState(() => ({ footerExtended: false }))
         setTimeout(() => {
             categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
             let timer = 0
@@ -129,6 +132,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
+                    useStore.setState(() => ({ footerExtended: true }))
                     clearInterval(checkTop)
                     transitioning.current = false
                 }
@@ -149,7 +153,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     <div className="absolute top-0 w-full h-full bg-white/40"></div>
                 </div>
                 {/* Info Section */}
-                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] z-20 translate-y-[-8px]`}>
+                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms]`}>
                     <div className="overflow-hidden">
                         {children}
                     </div>
