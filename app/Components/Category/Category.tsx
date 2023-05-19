@@ -150,7 +150,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 {/* Image */}
                 <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] mx-auto relative`} onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef}/>
-                    <div className="absolute top-0 w-full h-full bg-white/40"></div>
+                  
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
