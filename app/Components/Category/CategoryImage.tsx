@@ -41,7 +41,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
             <div className={`${imageFixed && "fixed top-0 left-0 w-full aspect-[3/2] overflow-hidden "}`}>
             <div className="absolute top-0 w-full h-full bg-white/40 z-10"></div>
-            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover border-b-2 border-black select-none scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
+            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover select-none scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
             <div className="absolute top-[50%] lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20">
                 {/* <RiseFade duration={0.6} delay={index <= 1 ? 1.2 : 0} awaitPreload={index <= 1}> */}
                     <h3 className={`${active ? 'scale-125 translate-y-[-2rem]' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic z-20`}>{title}</h3>

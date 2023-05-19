@@ -13,4 +13,9 @@
     box-sizing: border-box;
 }
 
+.fontGrad{
+    background: -webkit-linear-gradient(rgb(250 204 21), rgb(202 138 4));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
