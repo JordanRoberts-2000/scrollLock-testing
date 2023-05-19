@@ -51,7 +51,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleSelected = () => {
         if(active || transitioning.current)return
-        console.log('activated', transitioning.current, active)
         transitioning.current = true
         // Stage one
         requestAnimationFrame(() => {
@@ -69,6 +68,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
+                    clearInterval(checkTop)
                     setActive(true)
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
@@ -160,8 +160,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     </div>
                 </div>
             </div>
-            <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-0 lg:opacity-100'}
-                           duration-200 z-30 absolute bottom-0 left-[-2rem] mb-4 pl-12 py-1 bg-black text-white px-4 text-xl font-playfairDisplay italic`}>
+            <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-50 lg:opacity-100'}
+                           duration-[400ms] z-30 absolute bottom-0 left-[-2rem] mb-4 pl-12 py-1 bg-black text-white px-4 text-xl font-playfairDisplay italic`}>
                 {`from £${priceOptions[0].price}`}
             </div>
         </li>
