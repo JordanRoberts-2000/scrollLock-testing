@@ -26,13 +26,128 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
              {/* Pricelist */}
              <div className="flex flex-col lg:col-span-2">
                 {/* <Fade className="lg:!opacity-100"> */}
+                <div className="flex flex-col">
                     <div className="flex my-2 lg:my-0">
                         <div className="h-[2px] bg-black flex-1"></div>
-                        <h3 className="mx-4 font-semibold font-playfairDisplay translate-y-[-50%] italic text-3xl">Price List</h3>
+                        <h3 className="mx-4 font-semibold font-playfairDisplay translate-y-[-50%] italic text-3xl backdrop-blur-sm">Price List</h3>
                         <div className="h-[2px] bg-black flex-1"></div>
                     </div>
-                    <div className="lg:flex lg:overflow-x-auto lg:gap-20">
-                    {priceOptions.map(({title, included, price}, index) => (
+                    <div className="flex flex-col gap-4">
+                        <div className="mx-4 flex flex-col shadow-lg">
+                            <div className="bg-white flex flex-col justify-center items-center gap-8 py-8">
+                                <span className="text-xl font-extrabold tracking-wider uppercase">Single</span>
+                                <span className="text-4xl font-playfairDisplay font-[600]">£39.99</span>
+                                <button className=" border-[3px] border-black rounded-3xl leading-6 py-3 px-12 font-medium text-2xl tracking-wider w-fit">Book Now</button>
+                            </div>
+                            <div className="px-8 text-xl font-medium flex flex-col gap-4 pb-4">
+                                <div className="text-2xl font-bold">Included:</div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for beginner
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for intermidiate
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    inflatables
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mx-4 flex flex-col shadow-lg">
+                            <div className="bg-white flex flex-col justify-center items-center gap-8 py-8">
+                                <span className="text-xl font-extrabold tracking-wider uppercase">Single</span>
+                                <span className="text-4xl font-playfairDisplay font-[600]">£39.99</span>
+                                <button className=" border-[3px] border-black rounded-3xl leading-6 py-3 px-12 font-medium text-2xl tracking-wider w-fit">Book Now</button>
+                            </div>
+                            <div className="px-8 text-xl font-medium flex flex-col gap-4 pb-4">
+                                <div className="text-2xl font-bold">Included:</div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for beginner
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for intermidiate
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    inflatables
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mx-4 flex flex-col shadow-lg">
+                            <div className="bg-white flex flex-col justify-center items-center gap-8 py-8">
+                                <span className="text-xl font-extrabold tracking-wider uppercase">Single</span>
+                                <span className="text-4xl font-playfairDisplay font-[600]">£39.99</span>
+                                <button className=" border-[3px] border-black rounded-3xl leading-6 py-3 px-12 font-medium text-2xl tracking-wider w-fit">Book Now</button>
+                            </div>
+                            <div className="px-8 text-xl font-medium flex flex-col gap-4 pb-4">
+                                <div className="text-2xl font-bold">Included:</div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for beginner
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for intermidiate
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    inflatables
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mx-4 flex flex-col shadow-lg">
+                            <div className="bg-white flex flex-col justify-center items-center gap-8 py-8">
+                                <span className="text-xl font-extrabold tracking-wider uppercase">Single</span>
+                                <span className="text-4xl font-playfairDisplay font-[600]">£39.99</span>
+                                <button className=" border-[3px] border-black rounded-3xl leading-6 py-3 px-12 font-medium text-2xl tracking-wider w-fit">Book Now</button>
+                            </div>
+                            <div className="px-8 text-xl font-medium flex flex-col gap-4 pb-4">
+                                <div className="text-2xl font-bold">Included:</div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for beginner
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    course for intermidiate
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    inflatables
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {/* {priceOptions.map(({title, included, price}, index) => (
                         <div key={title} className="flex flex-col gap-2 mb-4 relative lg:ml-4">
                             {index === priceOptions.length - 1 &&
                                 <div className="absolute top-[50%] translate-x-[-50%] left-[50%] translate-y-[-50%] w-[100%] h-[85%] lg:hidden">
@@ -43,9 +158,9 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                             <h5 className="text-3xl bg-black font-playfairDisplay text-white py-1 px-4 w-fit z-10 whitespace-nowrap italic">{title}</h5>
                             <h5 className="font-playfairDisplay font-[800] text-2xl pl-3 w-fit z-10">Includes:</h5>
                             {included.map((data, index) => (
-                                // <RiseFade key={index} duration={.6} awaitPreload={false} className="z-10" wrapperClassName="z-10">
+                               
                                     <div key={index} className={`${index === included.length - 1 && 'lg:pb-4'} text-xl font-playfairDisplay font-[600] ml-2 z-10`}>{`- ${data}`}</div>
-                                // {/* </RiseFade> */}
+                            
                             ))}
                             <div className="flex mt-6 z-10 lg:mt-auto">
                                 <h6 className="text-3xl font-playfairDisplay font-[800] px-2 w-fit pr-8">{price !== 0 ? `£${price}` : "Free"}</h6>
@@ -61,12 +176,11 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                                 </div>
                             }
                         </div>
-                    ))}
-                    </div>
+                    ))} */}
                 {/* </Fade> */}
             </div>
             {/* Reviews */}
-            <div className="flex flex-col pb-24 px-4 lg:pb-4 lg:col-start-2 lg:row-start-1">
+            <div className="flex flex-col pb-24 px-4 mt-8 lg:pb-4 lg:col-start-2 lg:row-start-1">
                 {/* <Fade className="lg:!opacity-100"> */}
                     <div className="flex my-4">
                         <div className="h-[2px] bg-black flex-1"></div>

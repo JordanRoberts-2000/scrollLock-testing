@@ -6,6 +6,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { motion } from "framer-motion"
 import CategoryImage from "./CategoryImage"
 import { usePreventScroll } from "@/utils/hooks/usePreventOriginal"
+import ExitButton from "./ExitButton"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 // import Galllery from "./Galllery"
 
@@ -43,7 +44,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
-    const [infoActive, setInfoActive] = useState(false)
     const imageAdjust = () => {
         let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
         let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
@@ -138,29 +138,25 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     return (
         <li ref={categoryRef} className={`bg-white relative overscroll-contain select-none max-h-[100dvh] overflow-y-auto`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
-            <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
+            <ExitButton active={active} onClick={() => handleExit()}/>
             <div ref={categoryScrollRef} className={`
-                    ${!active ? "aspect-[3/2] w-[95%]": "w-full aspect-auto"} 
+                    ${!active ? "aspect-[3/2] lg:w-[30%] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
-                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto
-                    lg:grid lg:pt-4`}>
-                {/* Image/Gallery */}
-                <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] lg:w-full aspect-[3/2] lg:aspect-auto lg:h-[100%] mx-auto relative`} onClick={() => handleExit()}>
+                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto -z-20`}>
+                {/* Image */}
+                <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] mx-auto relative`} onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef}/>
                     <div className="absolute top-0 w-full h-full bg-white/40"></div>
-                    
-                    {/* <Galllery active={active} galleryImageUrls={galleryImageUrls}/> */}
                 </div>
                 {/* Info Section */}
-                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms]`}>
+                <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] z-20 translate-y-[-8px]`}>
                     <div className="overflow-hidden">
                         {children}
                     </div>
                 </div>
             </div>
-            <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-50 lg:opacity-100'}
+            {/* Price Preview */}
+            <div className={`${!priceActive ? "translate-x-[-100%]" : "translate-x-0"} ${categoryClicked !== title && categoryClicked !== '' && 'opacity-50'}
                            duration-[400ms] z-30 absolute bottom-0 left-[-2rem] mb-4 pl-12 py-1 bg-black text-white px-4 text-xl font-playfairDisplay italic`}>
                 {`from £${priceOptions[0].price}`}
             </div>
