@@ -59,7 +59,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             document.documentElement.style.overflow = 'hidden'
             document.documentElement.style.touchAction = 'none'
         })
-        useStore.setState(() => ({ categoryClicked: title }))
         setPriceActive(false)
         // Stage 2
         setTimeout(() => {
@@ -76,27 +75,30 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         infoSectionWrapper.current!.style.transitionDuration = `600ms`
                         imageRef.current.style.transform = `translate(0, 0) scale(1)`
                         imageRef.current.style.transitionDuration = `700ms`
-                        document.documentElement.style.paddingRight = `0px`
+                        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
                         document.documentElement.style.overflow = 'hidden'
                         document.documentElement.style.touchAction = 'none'
                     })
                     setTimeout(() => {
+                        useStore.setState(() => ({ categoryClicked: title }))
                         transitioning.current = false
                     },700)
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
                     clearInterval(checkTop)
+                    setPriceActive(true)
                     transitioning.current = false
+                    document.documentElement.style.paddingRight = `0px`
+                    document.documentElement.style.overflow = 'auto'
+                    document.documentElement.style.touchAction = 'auto'
                 }
             }, 10)
         }, 10)
     }
     const handleExit = () => {
-        console.log('tried', categoryClicked) 
         if(categoryClicked === "" || transitioning.current)return
         transitioning.current = true
-        console.log('deactivated', transitioning.current, active)
         setTimeout(() => {
             categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
             let timer = 0
@@ -134,7 +136,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         }, 10)
     }
     return (
-        <li ref={categoryRef} className={`${active && 'pointer-events-none'} bg-white relative lg:pointer-events-none lg:border-b-2 lg:border-black overscroll-contain select-none`} onClick={() => handleSelected()}>
+        <li ref={categoryRef} className={`bg-white relative overscroll-contain select-none max-h-[100dvh] overflow-y-auto`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
             <button className={`bg-black ${active ? "opacity-100 pointer-events-auto  duration-300" : "opacity-0 pointer-events-none"} p-2 lg:hidden rounded-full fixed bottom-0 right-0 m-4 z-40`} onClick={() => handleExit()}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="white" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
