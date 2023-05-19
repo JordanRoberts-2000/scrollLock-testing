@@ -38,13 +38,20 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     },[])
     return (
         <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
-            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover select-none scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
+            <div className="absolute bottom-0 left-[50%] translate-x-[-50%] rounded-lg flex gap-4 z-20 items-center backdrop-blur-sm p-2">
+                <div className="w-6 h-[2px] rounded-full bg-yellow-400"></div>
+                <div className="w-6 h-[2px] rounded-full bg-white"></div>
+                <div className="w-6 h-[2px] rounded-full bg-white"></div>
+                <div className="w-6 h-[2px] rounded-full bg-white"></div>
+                <div className="w-6 h-[2px] rounded-full bg-white"></div>
+            </div>
+            <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover border-b-2 border-black select-none scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
             <div className="absolute top-[50%] lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20">
                 {/* <RiseFade duration={0.6} delay={index <= 1 ? 1.2 : 0} awaitPreload={index <= 1}> */}
-                    <h3 className="text-4xl lg:text-7xl font-playfairDisplay font-[600] italic">{title}</h3>
+                    <h3 className={`${active ? 'text-5xl' : 'text-4xl'} lg:text-7xl duration-500 font-playfairDisplay font-[600] italic`}>{title}</h3>
                 {/* </RiseFade> */}
                 {/* <RiseFade duration={0.6} delay={(index <= 1 ? 1.2 : 0.2)} awaitPreload={index <= 1}> */}
-                    <p className="text-xl font-playfairDisplay">{subtitle}</p>
+                    <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
                 {/* </RiseFade> */}
             </div>
         </div>
