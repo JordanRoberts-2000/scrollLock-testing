@@ -69,7 +69,7 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                     </div>
                 {/* </Fade> */}
             </div>
-            <Footer/>
+            <Footer embedded={true}/>
         </>
     )
 }

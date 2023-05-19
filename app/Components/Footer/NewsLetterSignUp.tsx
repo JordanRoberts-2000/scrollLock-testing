@@ -5,7 +5,7 @@ import React from 'react'
 
 const NewsLetterSignUp = () => {
   return (
-    <div className='flex'>
+    <div className='flex pt-4 lg:pt-0'>
         <div className='relative flex-1'>
             <TextInputLabel HtmlId={'newsletter'} className='hidden'></TextInputLabel>
             <TextInput HtmlId='newsletter' variant={'justFloor'} placeholder='Sign up to our newsletter' 
