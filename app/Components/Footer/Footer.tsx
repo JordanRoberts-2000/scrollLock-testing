@@ -11,18 +11,18 @@ const Footer = ({embedded} : {embedded?: boolean}) => {
         <footer className={`flex flex-col bg-footer-primary text-footer-secondary relative
                             lg:border-t-2 lg:border-footer-secondary`}>
             <div className='flex flex-col lg:flex-row lg:pt-4'>
-                <ul className='flex flex-col text-center text-3xl font-medium font-playfairDisplay
-                                lg:text-2xl xl:text-3xl lg:flex-row lg:justify-between lg:mr-8 lg:ml-8 lg:pr-6 lg:flex-[2]'>
-                    <li className='border-y border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
+                <ul className='flex flex-col text-center font-medium font-playfairDisplay
+                                text-2xl xl:text-3xl lg:flex-row lg:justify-between lg:mr-8 lg:ml-8 lg:pr-6 lg:flex-[2]'>
+                    <li className='border-t border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
                         <Bookings/>
                     </li>
-                    <li className='border-y border-footer-secondary py-2 lg:border-none flex flex-col lg:items-start items-center'>
+                    <li className='border-t border-footer-secondary py-2 lg:border-none flex flex-col lg:items-start items-center'>
                         <OpeningTimes/>
                     </li>
-                    <li className='border-y border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
+                    <li className='border-t border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
                         <General/>
                     </li>
-                    <li className='border-y border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
+                    <li className='border-t border-footer-secondary lg:border-none py-2 flex flex-col lg:items-start items-center'>
                         <Contact/>
                     </li>
                     <li className='border-y border-footer-secondary flex lg:hidden lg:border-none py-2 flex-col lg:items-start items-center'>
@@ -49,7 +49,7 @@ const Footer = ({embedded} : {embedded?: boolean}) => {
                 </div>
             </div>
             <span className='text-gray-400 text-xs font-bold text-center mx-auto pb-4 lg:pb-0 lg:text-left flex flex-1 lg:mx-6 lg:mb-1 lg:py-4 lg:border-t lg:border-gray-400'>@CopyRight PocahontasBeach2023</span>
-            {!embedded ? <ResizableLargeBlock/> : <div className='bg-black h-[4rem]'></div>}
+            {!embedded && <ResizableLargeBlock/>}
         </footer>
     )
 }

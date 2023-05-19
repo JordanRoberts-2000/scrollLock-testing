@@ -16,8 +16,8 @@ const General = () => {
                 </span>
             </button>
             <div className={`${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr] lg:grid-rows-[1fr]'} w-full lg:w-auto grid transition-[grid-template-rows,500ms]`}>
-                <ul className={`text-3xl transition duration-500 text-white gap-8 flex flex-col text-center ml-1 overflow-hidden
-                                lg:text-lg lg:gap-2 lg:text-left`}>
+                <ul className={`transition duration-500 text-white gap-8 flex flex-col text-center ml-1 overflow-hidden
+                                text-lg lg:gap-2 lg:text-left`}>
                     <li className={`${open && 'scale-110 delay-75'} duration-200 mt-4 lg:mt-0`}>
                         FAQ
                     </li>
