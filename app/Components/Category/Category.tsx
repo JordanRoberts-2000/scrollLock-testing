@@ -44,6 +44,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
+    const [imageFixed, setImageFixed] = useState(false)
     const imageAdjust = () => {
         let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
         let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
@@ -82,6 +83,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     })
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
+                        setImageFixed(true)
                         transitioning.current = false
                     },700)
                 }
@@ -111,6 +113,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
                     clearInterval(checkTop)
+                    setImageFixed(false)
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.gridTemplateRows = '0fr'
                         infoSectionWrapper.current!.style.transitionDuration = `300ms`
@@ -149,7 +152,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
                 <div className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] mx-auto relative`} onClick={() => handleExit()}>
-                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef}/>
+                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed}/>
                   
                 </div>
                 {/* Info Section */}
