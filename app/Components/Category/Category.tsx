@@ -78,12 +78,13 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
                         document.documentElement.style.overflow = 'hidden'
                         document.documentElement.style.touchAction = 'none'
+                        imageRef.current.style.transitionDuration = `600ms`
+                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
                     })
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
                         setImageFixed(true)
-                        imageRef.current.style.transitionDuration = `400ms`
-                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                        
                         transitioning.current = false
                     },700)
                 }
