@@ -19,16 +19,17 @@ type Reviews = {
 
 type Props = {
     priceOptions: PriceOptions[],
-    reviews: Reviews[]
+    reviews: Reviews[],
+    introParagraph: string
 }
 
-const InfoSection = ({priceOptions, reviews}: Props) => {
+const InfoSection = ({priceOptions, reviews, introParagraph}: Props) => {
     return (
         <>
              {/* Pricelist */}
              <div className="flex flex-col lg:col-span-2">
                     <p className="mx-4 mt-4 text-xl uppercase font-medium text-center tracking-wide pb-8  font-playfairDisplay">
-                    Welcome to the thrilling world of jet ski adventures! Dive into the excitement and experience the ultimate aquatic thrill with our top-of-the-line jet ski hire service.
+                        {introParagraph}
                     </p>
                 {/* <div className="flex my-2 lg:my-0">
                     <div className="h-[2px] bg-black flex-1"></div>
@@ -47,7 +48,7 @@ const InfoSection = ({priceOptions, reviews}: Props) => {
                         </svg>
                     </div>
                     <div className="bg-black h-10 w-10 rounded-full flex items-center justify-center overflow-hidden">
-                        <svg className="h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3V320c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 53 43 96 96 96H352c53 0 96-43 96-96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V352z"/></svg>
+                        <svg className="h-5 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3V320c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 53 43 96 96 96H352c53 0 96-43 96-96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V352z"/></svg>
                     </div>
                 </div>
                 <div className="flex flex-col gap-8">

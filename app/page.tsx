@@ -49,11 +49,11 @@ export default function Home() {
                 <source src={'/powerSaving.mp4'} type="video/mp4"/>
             </video>
             <section className="pb-4 bg-white lg:flex-[9]">
-                <ul className="flex flex-col gap-4 lg:gap-0 ">
-                    {pageData.map(({imageUrl, title, subtitle, priceOptions, reviews, galleryImageUrls, blurImageUrl}, index) => (
-                        <Category key={title} imageUrl={imageUrl} title={title} subtitle={subtitle} priceOptions={priceOptions} 
+                <ul className="grid grid-cols-1 gap-y-4 lg:grid-cols-4 lg:gap-4 ">
+                    {pageData.map(({imageUrl, title, subtitle, priceOptions, reviews, galleryImageUrls, blurImageUrl, introParagraph}, index) => (
+                        <Category key={title} imageUrl={imageUrl} title={title} subtitle={subtitle} priceOptions={priceOptions}
                                     galleryImageUrls={galleryImageUrls} index={index} blurImageUrl={blurImageUrl}>
-                            <InfoSection priceOptions={priceOptions} reviews={reviews}/>
+                            <InfoSection priceOptions={priceOptions} reviews={reviews} introParagraph={introParagraph}/>
                         </Category>
                     ))}
                 </ul>
