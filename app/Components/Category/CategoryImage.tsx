@@ -39,7 +39,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     },[])
     return (
         <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
-                <div className={`${imageFixed && "fixed top-0 left-0 w-full aspect-[3/3.1] z-30 overflow-hidden "}`}>
+                <div className={`${imageFixed && "fixed top-0 left-0 w-full aspect-[3/3.3] z-30 overflow-hidden "}`}>
                 <div className="absolute top-0 w-full h-full bg-white/40 z-10"></div>
                 <Image ref={imageRef} alt="placeholder" priority={index <= 1} fill src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover select-none scale-150 duration-75`} placeholder="blur" blurDataURL={blurImageUrl}/>
                 <div className={`${active ? "top-[25%]" : "top-[50%]"} absolute duration-300 lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20`}>
