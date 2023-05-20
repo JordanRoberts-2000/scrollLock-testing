@@ -35,9 +35,23 @@ const HomeImage = () => {
         currentPathname.current = pathname
     },[pathname])
     return (
-        <div className="h-[calc(35vh+50px)] fixed top-0 w-full overflow-hidden lg:h-[calc(100vh+50px)] -z-20">
-            <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
-        </div>
+        <>
+            <div className="h-[calc(35vh+50px)] fixed top-0 w-full overflow-hidden lg:h-[calc(100vh+50px)] -z-20">
+            <div className='absolute flex flex-col-reverse lg:flex-col top-[20%] lg:top-[10%] left-[50%] translate-x-[-50%] z-30 items-center justify-center'>
+                <div ref={titleWrapperRef} className=" text-lg font-playfairDisplay italic font-[800] lg:text-8xl 
+                                whitespace-nowrap w-fit translate-y-[-8px] text-center">
+                    <div>
+                        <h1>The Best Beach in the<br className="hidden lg:block"/> Sutton West</h1>
+                    </div>
+                </div>
+                <h2 ref={subtitleRef} className="font-playfairDisplay lg:backdrop-blur-sm px-4 font-bold lg:border-black 
+                            lg:border-4 whitespace-nowrap italic text-[2.5rem] lg:mt-4">
+                    Pocahontas Beach
+                </h2>
+            </div>
+                <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
+            </div>
+        </>
     )
 }
 
