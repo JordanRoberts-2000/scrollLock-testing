@@ -1,9 +1,11 @@
 'use client'
 
+import { usePreventScroll } from '@/utils/hooks/usePreventScroll';
 import { useStore } from '@/zustand/store'
 import { useLayoutEffect, useRef } from 'react';
 
 const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
+    usePreventScroll()
     const { termsImageLoaded } = useStore()
     let transitionDiv = useRef<HTMLDivElement>(null)
     let wrapperRef = useRef<HTMLDivElement>(null)

@@ -1,7 +1,7 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
-import { useRef, useLayoutEffect } from "react"
+import { useRef, useLayoutEffect, useEffect } from "react"
 
 const MainPageTransition = ({children}: {children : React.ReactNode}) => {
     const { homeImageLoaded } = useStore()
@@ -9,23 +9,17 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
     let wrapperRef = useRef<HTMLDivElement>(null)
     const transitionPage = () => {
         transitionDiv.current!.style.height = '0px'
-        window.scroll({
-            top: 0, 
-            left: 0, 
-            behavior: 'smooth' 
-           });
+        wrapperRef.current!.style.top = '-50px'
     }
-    useLayoutEffect(() => {
-        document.body.scrollTop = document.documentElement.scrollTop = 100;
-        transitionDiv.current!.style.height = '100lvh'
-    },[])
-    useLayoutEffect(() => {
+    useEffect(() => {
         if(homeImageLoaded)transitionPage()
     },[homeImageLoaded])
     return (
         <>
-            <div ref={wrapperRef} className=' duration-1000'>
+            <div className='relative overflow-hidden w-full h-[35vh] lg:h-[100lvh]'>
+                <div ref={wrapperRef} className="absolute duration-1000 top-0 w-full left-0">
                 {children}
+                </div>
             </div>
             <div ref={transitionDiv} className={`h-[100lvh] bg-gray-200 z-40 duration-500 fixed bottom-0 left-0 w-full`}></div>
         </>

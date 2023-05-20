@@ -4,11 +4,10 @@ import Category from './Components/Category/Category'
 import InfoSection from './Components/Category/InfoSection'
 import LowPowerModeDetect from './Components/LowPowerModeDetect'
 import Main from './Components/Main/Main'
-import MainPageTransition from './Components/MainPageTransition'
 
 export default function Home() { 
     return (
-        <MainPageTransition>
+        <>
             <Main/>
             <LowPowerModeDetect/>
             <section className="pb-4 bg-white lg:flex-[9]">
@@ -22,6 +21,6 @@ export default function Home() {
                 </ul>
             </section>
             <Footer/>
-        </MainPageTransition>
+        </>
     )
 }
