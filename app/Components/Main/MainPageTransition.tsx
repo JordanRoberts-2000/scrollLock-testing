@@ -16,7 +16,7 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
     },[homeImageLoaded])
     return (
         <>
-            <div className='relative overflow-hidden w-full h-[35vh] lg:h-[100lvh]'>
+            <div className='relative overflow-hidden w-full h-[35vh] lg:h-[100lvh] -z-50'>
                 <div ref={wrapperRef} className="absolute duration-500 top-0 w-full left-0">
                 {children}
                 </div>
