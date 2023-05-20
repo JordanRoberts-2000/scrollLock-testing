@@ -64,6 +64,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         // Stage 2
         setTimeout(() => {
             categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
+            imageRef.current.style.transitionDuration = `700ms`
+            imageRef.current.style.transform = `translate(0, 0) scale(1)`
             let timer = 0
             const checkTop = setInterval(() => {
                 timer += 10
@@ -73,10 +75,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     clearInterval(checkTop)
                     setActive(true)
                     requestAnimationFrame(() => {
-                        infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
                         infoSectionWrapper.current!.style.transitionDuration = `600ms`
-                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
-                        imageRef.current.style.transitionDuration = `700ms`
+                        infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
                         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
                         document.documentElement.style.overflow = 'hidden'
                         document.documentElement.style.touchAction = 'none'
@@ -90,6 +90,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 if(timer >= 600){
                     // Stage 3 - cancel
                     useStore.setState(() => ({ footerExtended: false }))
+                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                     clearInterval(checkTop)
                     setPriceActive(true)
                     transitioning.current = false
@@ -151,7 +152,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
-                <div className={`${active ? "pointer-events-auto aspect-[3/4]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
+                <div className={`${active ? "pointer-events-auto aspect-[6/7]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed}/>
                   
                 </div>

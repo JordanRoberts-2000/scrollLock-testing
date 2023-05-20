@@ -812,24 +812,48 @@
         ]
     },
     {   
-        "title" : "Banana Boat Ride",
+        "title" : "Inflatable Ride",
         "subtitle" : "Volume 1",
         "imageUrl" : "http://res.cloudinary.com/dewhcvhvq/image/upload/v1684524471/cpjlp4z71f8folxfzztr.webp",
         "blurImageUrl" : "data:image/webp;base64,UklGRuICAABXRUJQVlA4WAoAAAAgAAAAGwAADwAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDgg9AAAAPAEAJ0BKhwAEAA+eTCURqSioiEwCACQDwloAJ0ygxgdgAOVoYD+18cADsuNIe9yEAD+9fia5YjT88Nt/SL1NP9EAUSBsqHuDR9ofEmymwKjvXaHFj6I86ipcoM/Eyy0H7xt16qVNK+UhWb6XjjKf1VK47Pzx3iHI33m+wqP05ScFwUzn7mxmA/wvnvD5Hr5ljQ4YK3yfF13o6Jkhjs1XmOO2dhOmQay8zpl0dXlKdG0Shj1T/OTGR+V+F4nHyu8M6ZZ6crgt8utGp+0+Z8/Z8BuivPkusWC9fynHnei/4Y9PA0sKWUGodmG28vapbKN6FrAAAA=",
-        "introParagraph": "Hop aboard a banana-shaped inflatable boat and hold on tight as you're pulled through the waves by a speedboat. This group activity is guaranteed to bring laughter and excitement as you try to stay on the boat without falling off.",
+        "introParagraph": "Hop aboard an inflatable boat and hold on tight as you're pulled through the waves by a speedboat. This group activity is guaranteed to bring laughter and excitement as you try to stay on the boat without falling off.",
         "priceOptions" : [
             {
-                "title" : "Courts",
-                "price" : 0,
+                "title" : "10min inflatable boat - single",
+                "price" : 20,
                 "included" : [
-                    "4 courts in the sand"
+                    "choose from available inflatable boat",
+                    "boat shapes: bannana, sting ray, crazy ufo",
+                    "photos taken whilst driving past pier"
                 ]
             },
             {
-                "title" : "Private Court - 1 Hour",
-                "price" : 30,
+                "title" : "25min inflatable boat - single",
+                "price" : 35,
                 "included" : [
-                    "1 Private court in the sand"
+                    "choose from available inflatable boat",
+                    "boat shapes: bannana, sting ray, crazy ufo",
+                    "photos taken whilst driving past pier"
+                ]
+            },
+            {
+                "title" : "10min inflatable boat - family",
+                "price" : 55,
+                "included" : [
+                    "choose from available inflatable boat",
+                    "boat shapes: bannana, sting ray, crazy ufo",
+                    "photos taken whilst driving past pier",
+                    "two adults and up to three children"
+                ]
+            },
+            {
+                "title" : "25min inflatable boat - family",
+                "price" : 90,
+                "included" : [
+                    "choose from available inflatable boat",
+                    "boat shapes: bannana, sting ray, crazy ufo",
+                    "photos taken whilst driving past pier",
+                    "two adults and up to three children"
                 ]
             }
         ],
