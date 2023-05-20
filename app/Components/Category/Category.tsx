@@ -64,8 +64,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         // Stage 2
         setTimeout(() => {
             categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
-            imageRef.current.style.transitionDuration = `700ms`
-            imageRef.current.style.transform = `translate(0, 0) scale(1)`
             let timer = 0
             const checkTop = setInterval(() => {
                 timer += 10
@@ -80,17 +78,19 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
                         document.documentElement.style.overflow = 'hidden'
                         document.documentElement.style.touchAction = 'none'
+                        imageRef.current.style.transitionDuration = `200ms`
+                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
                     })
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
                         setImageFixed(true)
+                        
                         transitioning.current = false
                     },700)
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
                     useStore.setState(() => ({ footerExtended: false }))
-                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                     clearInterval(checkTop)
                     setPriceActive(true)
                     transitioning.current = false
