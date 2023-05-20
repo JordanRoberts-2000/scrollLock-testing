@@ -45,15 +45,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
     const [imageFixed, setImageFixed] = useState(false)
-    const imageAdjust = () => {
-        console.log('scroll')
-        // let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
-        // let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-        // return imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
-    }
     const handleSelected = () => {
         if(active || transitioning.current)return
-        console.log('enter')
+        console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
         // Stage one
         requestAnimationFrame(() => {
@@ -107,7 +101,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleExit = () => {
         if(categoryClicked === "" || transitioning.current)return
-        console.log('exit')
+        // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
         useStore.setState(() => ({ footerExtended: false }))
         setTimeout(() => {
@@ -123,8 +117,12 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.gridTemplateRows = '0fr'
                         infoSectionWrapper.current!.style.transitionDuration = `300ms`
-                        imageRef.current.style.transitionDuration = `700ms`
-                        imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                        imageRef.current.style.transitionDuration = `550ms`
+                        let heightDifference = scrollUpRef.current!.getBoundingClientRect().top
+                        // console.log(heightDifference, 'height')
+                        let percentagePassed = (((imageWrapperRef.current!.getBoundingClientRect().top + heightDifference) - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
+                        let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+                        imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
                     })
                     setTimeout(() => {
                         setActive(false)
@@ -158,8 +156,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
-                <div className={`${active ? "pointer-events-auto aspect-[3/3.1]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
-                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning}/>
+                <div className={`${active ? "pointer-events-auto aspect-[3/3.3]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
+                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
+                                   imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef}/>
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
