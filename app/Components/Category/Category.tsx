@@ -148,13 +148,12 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
             <ExitButton active={active} onClick={() => handleExit()}/>
             <div ref={categoryScrollRef} className={`
-                    ${!active ? "aspect-[3/2] lg:aspect-auto lg:w-[100%] w-[95%]": "w-full aspect-auto"} 
+                    ${!active ? "aspect-[3/2] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
-                <div className={`${active ? "pointer-events-auto aspect-[3/3.3]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
+                <div className={`${active ? "pointer-events-auto aspect-[3/3.1]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
                     <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed}/>
-                  
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>

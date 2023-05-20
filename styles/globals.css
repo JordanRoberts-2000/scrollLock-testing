@@ -22,3 +22,12 @@
 .fadeWhite{
     background: linear-gradient(0deg, rgba(255,255,255,1) 25%, rgba(0,212,255,0) 100%);
   }
+
+  .transformx{
+    
+    transform: translate3d(0,0,0);
+  }
+
+  .clipp{
+    clip-path: inset(0);
+  }

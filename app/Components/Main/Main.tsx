@@ -8,7 +8,7 @@ const Main = () => {
         useStore.setState(() => ({homeImageLoaded: true}))
     }
     return (
-        <main className={`flex flex-col`}>
+        <main className={`flex flex-col -z-10`}>
             <div className="h-[calc(35vh+50px)] relative lg:h-[calc(100vh+50px)]">
                 <Image alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={100} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
                 <div className="fadeWhite translate-y-[2px] h-6 z-10 absolute bottom-0 w-full"></div>

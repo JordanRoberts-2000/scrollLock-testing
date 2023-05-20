@@ -8,7 +8,7 @@ type PriceOptionProps = {
 
 const PriceOption = ({data}:PriceOptionProps) => {
     return (
-        <div className="mx-4 flex flex-col shadow-xl border">
+        <div className="mx-8 flex flex-col shadow-xl border">
             <div className="bg-white flex flex-col justify-center items-center gap-8 py-8">
                 <span className="font-extrabold tracking-wider uppercase">{data.title}</span>
                 <span className="text-4xl font-playfairDisplay font-[600]">{`${data.price !== 0 ? '£'+data.price : 'Free'}`}</span>
