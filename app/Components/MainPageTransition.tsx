@@ -1,10 +1,10 @@
 'use client'
 
-import { useStore } from '@/zustand/store'
-import { useLayoutEffect, useRef } from 'react';
+import { useStore } from "@/zustand/store"
+import { useRef, useLayoutEffect } from "react"
 
-const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
-    const { termsImageLoaded } = useStore()
+const MainPageTransition = ({children}: {children : React.ReactNode}) => {
+    const { homeImageLoaded } = useStore()
     let transitionDiv = useRef<HTMLDivElement>(null)
     let wrapperRef = useRef<HTMLDivElement>(null)
     const transitionPage = () => {
@@ -17,8 +17,8 @@ const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     },[])
     useLayoutEffect(() => {
-        if(termsImageLoaded)transitionPage()
-    },[termsImageLoaded])
+        if(homeImageLoaded)transitionPage()
+    },[homeImageLoaded])
     return (
         <>
             <div ref={wrapperRef} className=' duration-1000 translate-y-[0]'>
@@ -29,4 +29,4 @@ const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
     )
 }
 
-export default TermsPageTransition
+export default MainPageTransition
