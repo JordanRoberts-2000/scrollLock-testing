@@ -131,6 +131,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                             document.documentElement.style.paddingRight = `0px`
                             document.documentElement.style.overflow = 'auto'
                             document.documentElement.style.touchAction = 'auto'
+                            imageRef.current.style.transitionDuration = `75ms`
                             useStore.setState(() => ({categoryClicked: ""}))
                             transitioning.current = false
                         },150)
