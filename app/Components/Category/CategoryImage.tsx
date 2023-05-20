@@ -14,18 +14,20 @@ type Props = {
     index: number,
     imageRef: any,
     imageWrapperRef: any,
-    imageFixed: boolean
+    imageFixed: boolean,
+    transitioning: any
 }
 
-const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed}: Props) => {
-    const { powerSavingMode, categoryClicked } = useStore()
+const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning}: Props) => {
+    const { powerSavingMode, categoryClicked, footerExtended } = useStore()
     let throttle = useRef(true)
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
+        if(transitioning.current)return
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
-        }, 20)
+        }, 50)
         requestAnimationFrame(() => {
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)

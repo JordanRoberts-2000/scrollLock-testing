@@ -46,12 +46,14 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [priceActive, setPriceActive] = useState(true)
     const [imageFixed, setImageFixed] = useState(false)
     const imageAdjust = () => {
-        let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
-        let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-        return imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+        console.log('scroll')
+        // let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
+        // let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+        // return imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
     }
     const handleSelected = () => {
         if(active || transitioning.current)return
+        console.log('enter')
         transitioning.current = true
         // Stage one
         requestAnimationFrame(() => {
@@ -105,6 +107,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     }
     const handleExit = () => {
         if(categoryClicked === "" || transitioning.current)return
+        console.log('exit')
         transitioning.current = true
         useStore.setState(() => ({ footerExtended: false }))
         setTimeout(() => {
@@ -156,7 +159,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
                 <div className={`${active ? "pointer-events-auto aspect-[3/3.3]" : 'pointer-events-none aspect-[3/2]'} w-[100%] duration-500 mx-auto relative`} onClick={() => handleExit()}>
-                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed}/>
+                    <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning}/>
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
