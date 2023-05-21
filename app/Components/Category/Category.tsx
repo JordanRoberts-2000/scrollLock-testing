@@ -58,7 +58,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             requestAnimationFrame(() => {
                 imageRef.current.style.transitionDuration = `600ms`
                 imageRef.current.style.transform = `translate(0, 0) scale(1)`
-                aspectWrapper.current!.style.aspectRatio = '3/2'
+                aspectWrapper.current!.style.aspectRatio = '3/3.3'
             })
             let timer = 0
             const checkTop = setInterval(() => {
@@ -114,7 +114,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     clearInterval(checkTop)
                     setImageFixed(false)
                     requestAnimationFrame(() => {
-                        aspectWrapper.current!.style.aspectRatio = '3/3.1'
+                        aspectWrapper.current!.style.aspectRatio = '3/2'
                         infoSectionWrapper.current!.style.gridTemplateRows = '0fr'
                         infoSectionWrapper.current!.style.transitionDuration = `300ms`
                         imageRef.current.style.transitionDuration = `550ms`
@@ -157,7 +157,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
                     overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto`}>
                 {/* Image */}
-                <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/3.1] duration-500 mx-auto relative`} onClick={() => handleExit()}>
+                <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] duration-500 mx-auto relative`} onClick={() => handleExit()}>
                 <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
                                 imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef}/>
                 </div>
