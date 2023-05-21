@@ -1,8 +1,5 @@
-// import Fade from "@/utils/components/Animation/Fade"
-// import RiseFade from "@/utils/components/Animation/RiseFade"
-import Image from "next/image"
 import PriceOption from "./PriceOption"
-import Footer from "../Footer/Footer"
+import DynamicFooter from "./DynamicFooter"
 
 type PriceOptions = {
     title: string,
@@ -20,10 +17,11 @@ type Reviews = {
 type Props = {
     priceOptions: PriceOptions[],
     reviews: Reviews[],
-    introParagraph: string
+    introParagraph: string,
+    title: string
 }
 
-const InfoSection = ({priceOptions, reviews, introParagraph}: Props) => {
+const InfoSection = ({priceOptions, reviews, introParagraph, title}: Props) => {
     return (
         <>
              {/* Pricelist */}
@@ -87,7 +85,7 @@ const InfoSection = ({priceOptions, reviews, introParagraph}: Props) => {
                     </div>
                 {/* </Fade> */}
             </div>
-            <Footer embedded={true}/>
+            <DynamicFooter title={title}/>
         </>
     )
 }

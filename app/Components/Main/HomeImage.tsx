@@ -47,7 +47,7 @@ const HomeImage = () => {
                         Pocahontas Beach
                     </h2>
                 </div>
-                <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={75} onLoadingComplete={() => imageLoaded()} className=' object-cover'/>
+                <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={75} onLoadingComplete={() => imageLoaded()} className=' transition-transform object-cover'/>
             </div>
         </>
     )
