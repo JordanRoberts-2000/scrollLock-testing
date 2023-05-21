@@ -28,7 +28,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
-        }, 20)
+        }, 10)
         requestAnimationFrame(() => {
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
