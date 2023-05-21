@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react"
 import { useStore } from "@/zustand/store"
 
 const LowPowerModeDetect = () => {
+    console.log('lowerpowerdetect')
     let videoRef = useRef<HTMLVideoElement>(null)
     useLayoutEffect(() => {
         videoRef.current!.play()

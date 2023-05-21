@@ -15,12 +15,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-        <body className={`${playfairDisplay.variable} ${openSans.variable}`}>
-            <Header/>
-            {children}
-        </body>
-    </html>
-  )
+    return (
+        <html lang="en">
+            <body className={`${playfairDisplay.variable} ${openSans.variable}`}>
+                <Header/>
+                {children}
+            </body>
+        </html>
+    )
 }
