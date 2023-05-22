@@ -159,7 +159,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 {/* Image */}
                 <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] transition-[aspect-ratio] duration-500 mx-auto relative`} onClick={() => handleExit()}>
                 <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
-                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef}/>
+                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef} galleryImageUrls={galleryImageUrls}/>
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
