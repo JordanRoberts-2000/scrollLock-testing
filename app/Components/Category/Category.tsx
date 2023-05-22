@@ -155,7 +155,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             <div ref={categoryScrollRef} className={`
                     ${!active ? "aspect-[3/2] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
-                    overscroll-contain select-none grid-cols-[2fr,1fr] auto-rows-min mx-auto transition-[opacity,width]`}>
+                    overscroll-contain select-none grid-cols-[2fr,1fr] will-change-[aspect-ratio,opacity,width] ease-linear auto-rows-min mx-auto transition-[opacity,width]`}>
                 {/* Image */}
                 <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] transition-[aspect-ratio] duration-500 mx-auto relative`} onClick={() => handleExit()}>
                 <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
