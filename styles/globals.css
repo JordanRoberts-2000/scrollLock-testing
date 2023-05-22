@@ -5,6 +5,7 @@
 :root {
     --footer-primary-color: rgb(9 9 11);
     --footer-secondary-color: rgb(156 163 175);
+    --scroll: 1;
   }
 
 *{

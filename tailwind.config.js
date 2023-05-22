@@ -16,6 +16,9 @@ module.exports = {
               "footer-primary": "var(--footer-primary-color)",
               "footer-secondary": "var(--footer-secondary-color)"
             },
+            scale: {
+                "scroll": "var(--scroll)"
+            }
           },
     },
     plugins: [],
