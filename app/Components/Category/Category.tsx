@@ -42,7 +42,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [priceActive, setPriceActive] = useState(true)
     const [imageFixed, setImageFixed] = useState(false)
     const handleSelected = useCallback(() => {
-        if(active || transitioning.current)return
+        if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
         transitioning.current = true
         // Stage one
         requestAnimationFrame(() => {
@@ -74,12 +74,11 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
                         document.documentElement.style.overflow = 'hidden'
                         document.documentElement.style.touchAction = 'none'
+                        transitioning.current = false
                     })
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
                         setImageFixed(true)
-                        
-                        transitioning.current = false
                     },700)
                 }
                 if(timer >= 600){
@@ -100,6 +99,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     },[])
     const handleExit = useCallback(() => {
         if(categoryClicked === "" || transitioning.current)return
+        console.log('leave now')
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
         useStore.setState(() => ({ footerExtended: false }))
