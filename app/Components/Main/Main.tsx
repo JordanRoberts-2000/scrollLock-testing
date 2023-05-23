@@ -9,7 +9,7 @@ const Main = () => {
             <MainPageTransition>
                 <HomeImage/>
             </MainPageTransition>
-            <div className="relative h-0 lg:h-8 bg-white w-full">
+            <div className="relative h-0 lg:h-4 bg-white w-full">
                 <div className="fadeWhite left-0 h-6 z-10 absolute bottom-[100%] translate-y-[2px] w-full"></div>
             </div>
             <div className="flex flex-col bg-white lg:bg-transparent relative lg:fixed lg:top-0 lg:left-0 lg:h-[100vh] lg:w-full -z-20 lg:-z-20">

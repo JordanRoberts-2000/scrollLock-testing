@@ -28,7 +28,14 @@ type Props = {
 
 const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning, scrollUpRef, galleryImageUrls}: Props) => {
     const { powerSavingMode } = useStore()
+    let sliderWrapper = useRef<HTMLDivElement>(null)
+    let currentTranslation = useRef(0)
+    let isDragging = useRef(false)
     let throttle = useRef(true)
+    let prevTranslation = useRef(0)
+    let animationId = useRef(0)
+    let currentIndex = useRef(0)
+    let startPos = useRef(0)
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
         if(transitioning.current)return
@@ -61,6 +68,51 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             }
         })
     },[])
+    useEffect(() => {
+        if(isDragging.current === false){
+            cancelAnimationFrame(animationId.current)
+        }
+        // disable context menu on hold
+        // window.oncontextmenu = (e) => {
+        //     e.preventDefault()
+        //     e.stopPropagation()
+        //     return false
+        // }
+    }, [isDragging.current])
+    function animation() {
+        if(!sliderWrapper.current)return
+        sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
+        if(isDragging.current) requestAnimationFrame(animation)
+    }
+    const setPositionByIndex = () => {
+        currentTranslation.current = currentIndex.current * -window.innerWidth
+        prevTranslation.current = currentTranslation.current
+        sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
+    }
+    const touchStart = (e:any) => {
+        console.log('eggFoot')
+        isDragging.current = true
+        startPos.current = e.touches[0].clientX
+        animationId.current = requestAnimationFrame(animation)
+    }
+    const touchMove = (e:any) => {
+        currentTranslation.current = prevTranslation.current + e.touches[0].clientX - startPos.current
+
+    }
+    const touchEnd = () => {
+        isDragging.current = false
+        cancelAnimationFrame(animationId.current)
+        let movedBy = currentTranslation.current - prevTranslation.current
+        if(movedBy < -100 && currentIndex.current < galleryImageUrls.length){
+            currentIndex.current++
+            setPositionByIndex()
+        }else if(movedBy > 100 && currentIndex.current > 0){
+            currentIndex.current--
+            setPositionByIndex()
+        }else{
+            setPositionByIndex()
+        }
+    }
     return (
         // <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
         //         <div className={`${imageFixed ? "fixed top-0 left-0 w-full aspect-[3/3.3] z-30 overflow-hidden" : 'relative h-full w-full'}`}>
@@ -73,23 +125,25 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         //         </div>
         //     </div>
         // </div>
-        <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden">
-            <div className={`${imageFixed ? "fixed top-0 left-0 aspect-[3/3.3] z-30 overflow-x-scroll overflow-y-hidden" : 'relative h-full overflow-hidden'} w-full flex`}>
-                <div className="absolute top-0 w-full h-full bg-white/40 z-10"></div>
+        <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden lg:rounded-lg">
+            <div className={`${imageFixed ? "fixed top-0 left-0 aspect-[3/3.3] z-30" : 'relative h-full'} w-full flex overflow-hidden`}>
+                <div className={`${imageFixed ? "fixed aspect-[3/3.3]" : "absolute h-full"} top-0 left-0 w-full bg-white/40 z-10 pointer-events-none`}></div>
                 <div className={`${active ? "top-[25%]" : "top-[50%]"} absolute duration-300 lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20`}>
                     <h3 className={`${active ? 'scale-125' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic whitespace-nowrap z-20`}>{title}</h3>
                     <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
                 </div>
-                <div className="flex-shrink-0 w-full relative">
-                    <Image ref={imageRef} alt="placeholder" priority={index < 1} fill loading="eager" src={imageUrl} className={`${powerSavingMode && '!scale-100'} object-cover will-change-transform ease-linear transition-transform select-none scale-150 duration-75`} 
-                           placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
-                </div>
-                {galleryImageUrls.map(({url, placeholder, blurImageUrl}) => (
-                    <div key={url} className="flex-shrink-0 w-full relative">
-                        <Image alt={placeholder} loading="lazy" fill src={url} className={`object-cover select-none`} 
+                <div ref={sliderWrapper} className="flex flex-1 relative">
+                    <div className="flex-shrink-0 w-full relative" onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()}>
+                        <Image ref={imageRef} alt="placeholder" priority={index < 1} fill loading="eager" src={imageUrl} className={`${powerSavingMode && '!scale-100'} lg:!scale-100 object-cover will-change-transform ease-linear transition-transform select-none scale-150 duration-75`} 
                             placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
                     </div>
-                ))}
+                    {galleryImageUrls.map(({url, placeholder, blurImageUrl}) => (
+                        <div key={url} className="flex-shrink-0 w-full relative" onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()} >
+                            <Image alt={placeholder} loading="lazy" fill src={url} className={`object-cover select-none`} 
+                                placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

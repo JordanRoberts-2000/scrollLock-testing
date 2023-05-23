@@ -23,6 +23,9 @@
 .fadeWhite{
     background: linear-gradient(0deg, rgba(255,255,255,1) 25%, rgba(0,212,255,0) 100%);
   }
+  .fadeWhiteFade{
+    background: linear-gradient(0deg, rgba(255,255,255,0.8) 25%, rgba(0,212,255,0) 100%);
+  }
 
   .transformx{
     
