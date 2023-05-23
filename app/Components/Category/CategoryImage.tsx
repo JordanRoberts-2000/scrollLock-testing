@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 import Image from "next/image"
 import { AnyNode } from "postcss"
-import { useEffect, useLayoutEffect, useRef, memo, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, memo, useState, useCallback } from "react"
 const DynamicGallery = dynamic(() => import('./Gallery'));
 
 type GalleryImageUrls = {
@@ -42,9 +42,10 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     let throttle = useRef(true)
     let animationId = useRef(0)
     let startPos = useRef(0)
-    const pageScroll = () => {
+    const pageScroll = useCallback(() => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
-        if(transitioning.current)return
+        // if(transitioning.current)return
+        if(imageRef.current.style.transform === 'translate(0px, 0px) scale(1)')alert('its this')
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
@@ -53,15 +54,16 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                 let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                // imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+                imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
             }
         })
-    }
+    },[])
     useLayoutEffect(() => {
         window.addEventListener('scroll', pageScroll)
         if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
             let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
             let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+            alert('useLayoutEffect')
             imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
         }
     },[])
@@ -70,6 +72,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                 let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
+                alert('useEffect')
                 imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
             }
         })
