@@ -73,11 +73,11 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             cancelAnimationFrame(animationId.current)
         }
         // disable context menu on hold
-        // window.oncontextmenu = (e) => {
-        //     e.preventDefault()
-        //     e.stopPropagation()
-        //     return false
-        // }
+        window.oncontextmenu = (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            return false
+        }
     }, [isDragging.current])
     function animation() {
         if(!sliderWrapper.current)return
