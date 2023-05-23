@@ -81,6 +81,8 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     }, [isDragging.current])
     function animation() {
         if(!sliderWrapper.current)return
+        if(sliderWrapper.current!.getBoundingClientRect().left > 0)return
+        console.log(sliderWrapper.current!.getBoundingClientRect().left, 'slider')
         sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
         if(isDragging.current) requestAnimationFrame(animation)
     }
@@ -103,6 +105,10 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         isDragging.current = false
         cancelAnimationFrame(animationId.current)
         let movedBy = currentTranslation.current - prevTranslation.current
+        sliderWrapper.current!.style.touchAction = 'none'
+        setTimeout(() => {
+            sliderWrapper.current!.style.touchAction = 'auto'
+        },300)
         if(movedBy < -100 && currentIndex.current < galleryImageUrls.length){
             currentIndex.current++
             setPositionByIndex()
@@ -132,7 +138,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
                     <h3 className={`${active ? 'scale-125' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic whitespace-nowrap z-20`}>{title}</h3>
                     <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
                 </div>
-                <div ref={sliderWrapper} className="flex flex-1 relative">
+                <div ref={sliderWrapper} className="flex flex-1 relative duration-300">
                     <div className="flex-shrink-0 w-full relative" onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()}>
                         <Image ref={imageRef} alt="placeholder" priority={index < 1} fill loading="eager" src={imageUrl} className={`${powerSavingMode && '!scale-100'} lg:!scale-100 object-cover will-change-transform ease-linear transition-transform select-none scale-150 duration-75`} 
                             placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
