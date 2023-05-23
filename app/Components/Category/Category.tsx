@@ -58,7 +58,11 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
     const bodyPreventScroll = (e:any) => {
-        if(e.target === imageRef.current)e.preventDefault()
+        if(!infoSectionWrapper.current!.contains(e.target)){
+            console.log('prevented')
+            
+            e.preventDefault()
+        }
     }
 
     const handleSelected = useCallback(() => {
