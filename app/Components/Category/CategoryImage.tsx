@@ -3,6 +3,7 @@
 import { useStore } from "@/zustand/store"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 import Image from "next/image"
+import { AnyNode } from "postcss"
 import { useEffect, useLayoutEffect, useRef, memo, useState } from "react"
 
 type GalleryImageUrls = {
@@ -24,19 +25,20 @@ type Props = {
     transitioning: any,
     scrollUpRef: any,
     galleryImageUrls: GalleryImageUrls[],
-    braedCrumbs: any
+    braedCrumbs: any,
+    sliderWrapper: any,
+    currentIndex: any,
+    indexState: any,
+    setIndexState: any,
+    currentTranslation: any,
+    prevTranslation: any
 }
 
-const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning, scrollUpRef, galleryImageUrls, braedCrumbs}: Props) => {
+const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning, scrollUpRef, galleryImageUrls, braedCrumbs, sliderWrapper, setIndexState, indexState, currentIndex, currentTranslation, prevTranslation}: Props) => {
     const { powerSavingMode } = useStore()
-    let sliderWrapper = useRef<HTMLDivElement>(null)
-    let currentTranslation = useRef(0)
-    const [indexState, setIndexState] = useState(0)
     let isDragging = useRef(false)
     let throttle = useRef(true)
-    let prevTranslation = useRef(0)
     let animationId = useRef(0)
-    let currentIndex = useRef(0)
     let startPos = useRef(0)
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
@@ -120,11 +122,11 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         },300)
         if(movedBy < -100 && currentIndex.current < galleryImageUrls.length){
             currentIndex.current++
-            setIndexState((prev) => prev + 1)
+            setIndexState((prev:number) => prev + 1)
             setPositionByIndex()
         }else if(movedBy > 100 && currentIndex.current > 0){
             currentIndex.current--
-            setIndexState((prev) => prev - 1)
+            setIndexState((prev:number) => prev - 1)
             setPositionByIndex()
         }else{
             setPositionByIndex()

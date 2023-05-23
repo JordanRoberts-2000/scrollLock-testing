@@ -31,12 +31,17 @@ type Props = {
 const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryImageUrls, blurImageUrl, index}: Props) => {
     let categoryRef = useRef<HTMLLIElement>(null)
     let scrollUpRef = useRef<HTMLDivElement>(null)
+    const [indexState, setIndexState] = useState(0)
+    let currentIndex = useRef(0)
     let imageRef = useRef<any>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
+    let prevTranslation = useRef(0)
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     let infoSectionWrapper = useRef<HTMLDivElement>(null)
     let braedCrumbs = useRef<HTMLDivElement>(null)
     let aspectWrapper = useRef<HTMLDivElement>(null)
+    let sliderWrapper = useRef<HTMLDivElement>(null)
+    let currentTranslation = useRef(0)
     let transitioning = useRef(false)
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
@@ -58,9 +63,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
     const bodyPreventScroll = useCallback((e:any) => {
+        if(!infoSectionWrapper.current)return
         if(!infoSectionWrapper.current!.contains(e.target)){
-            console.log('prevented')
-            
             e.preventDefault()
         }
     },[])
@@ -125,8 +129,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             }, 10)
         }, 10)
     },[])
-    const handleExit = useCallback((e:any) => {
-        console.log(e.target.parentNode)
+    const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const handleExit = useCallback(async (e:any) => {
+        console.log(categoryRef.current!.scrollTop,'stinky scroll')
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
         if(categoryClicked === "" || transitioning.current)return
         document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
@@ -135,13 +140,21 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         transitioning.current = true
         useStore.setState(() => ({ footerExtended: false }))
         setTimeout(() => {
-            categoryScrollRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
+            categoryRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
             let timer = 0
-            const checkTop = setInterval(() => {
+            const checkTop = setInterval(async () => {
                 timer += 10
-                const categoryTopPosition = categoryScrollRef.current!.scrollTop
+                const categoryTopPosition = categoryRef.current!.scrollTop
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
+                    if(sliderWrapper.current!.style.transform !== 'translateX(0px)'){
+                        await delay(200)
+                        sliderWrapper.current!.style.transform = 'translateX(0px)'
+                        setIndexState(0)
+                        currentIndex.current = 0
+                        currentTranslation.current = 0
+                        prevTranslation.current = 0
+                    }
                     clearInterval(checkTop)
                     setImageFixed(false)
                     requestAnimationFrame(() => {
@@ -169,7 +182,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         },150)
                     },400)
                 }
-                if(timer >= 600){
+                if(timer >= 700){
                     // Stage 3 - cancel
                     document.documentElement.addEventListener('touchmove', bodyPreventScroll, { passive: false })
                     aspectWrapper.current!.style.aspectRatio = '3/3.3'
@@ -190,8 +203,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     overscroll-contain select-none grid-cols-[2fr,1fr] will-change-[aspect-ratio,opacity,width] ease-linear auto-rows-min mx-auto transition-[opacity,width]`}>
                 {/* Image */}
                 <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] transition-[aspect-ratio] duration-500 mx-auto relative`} onClick={(e) => handleExit(e)}>
-                <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
-                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef} galleryImageUrls={galleryImageUrls} braedCrumbs={braedCrumbs}/>
+                <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} sliderWrapper={sliderWrapper}
+                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef} galleryImageUrls={galleryImageUrls} braedCrumbs={braedCrumbs}
+                                indexState={indexState} setIndexState={setIndexState} currentIndex={currentIndex} currentTranslation={currentTranslation} prevTranslation={prevTranslation}/>
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>
