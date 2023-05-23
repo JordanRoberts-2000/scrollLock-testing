@@ -13,7 +13,7 @@ const PriceOption = ({data}:PriceOptionProps) => {
                 <span className="font-extrabold tracking-wider uppercase">{data.title}</span>
                 <span className="text-4xl font-playfairDisplay font-[600]">{`${data.price !== 0 ? '£'+data.price : 'Free'}`}</span>
                 {data.price !== 0 &&
-                    <button className=" bg-yellow-400 text-white shadow-sm rounded-md leading-6 py-3 px-16 text-2xl tracking-wider w-fit">Book Now</button>
+                    <button className=" bg-white border-black border-2 text-black shadow-sm rounded-md font-bold font-playfairDisplay leading-6 py-3 px-16 text-2xl tracking-wider w-fit">Book Now</button>
                 }
             </div>
             <div className="px-8 text-xl font-medium flex flex-col gap-4 pb-8">

@@ -58,7 +58,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         })
     }
     useLayoutEffect(() => {
-        alert('layoueffect')
         window.addEventListener('scroll', pageScroll)
         if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
             let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
@@ -67,7 +66,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         }
     },[])
     useEffect(() => {
-        alert('effedt')
         requestAnimationFrame(() => {
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
@@ -155,10 +153,10 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
                     <h3 className={`${active ? 'scale-125' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic whitespace-nowrap z-20`}>{title}</h3>
                     <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
                 </div>
-                <div ref={braedCrumbs} className={`${imageFixed ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} duration-500 backdrop-blur-sm py-3 px-6 rounded-full z-20 absolute bottom-0 left-[50%] translate-x-[-50%] mb-2 flex gap-6`}>
-                    <div className={`${0 === indexState ? "bg-white" : ""} h-3 w-3 border-white border-2 rounded-full`} onClick={() => handleIndexChange(0)}></div>
+                <div ref={braedCrumbs} className={`${imageFixed ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} duration-500 backdrop-blur-sm py-3 px-6 rounded-full z-20 absolute bottom-0 left-[50%] translate-x-[-50%] mb-2 flex gap-8`}>
+                    <div className={`${0 === indexState ? "bg-white" : ""} h-4 w-4 border-white border-2 rounded-full`} onClick={() => handleIndexChange(0)}></div>
                     {galleryImageUrls.map((el, index) => (
-                        <div key={el.url} className={`${index + 1 === indexState ? "bg-white" : ""} h-3 w-3 border-white border-2 rounded-full`} onClick={() => handleIndexChange(index + 1)}></div>
+                        <div key={el.url} className={`${index + 1 === indexState ? "bg-white" : ""} h-4 w-4 border-white border-2 rounded-full`} onClick={() => handleIndexChange(index + 1)}></div>
                     ))}
                 </div>
                 <div ref={sliderWrapper} className="flex flex-1 relative duration-300">

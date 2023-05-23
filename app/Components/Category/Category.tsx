@@ -84,6 +84,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     requestAnimationFrame(() => {
                         infoSectionWrapper.current!.style.transitionDuration = `600ms`
                         infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                        imageRef.current.style.transform = `translate(0, 0) scale(1)`
                         transitioning.current = false
                     })
                     setTimeout(() => {
