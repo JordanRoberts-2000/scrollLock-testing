@@ -1,10 +1,12 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
+import dynamic from "next/dynamic"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 import Image from "next/image"
 import { AnyNode } from "postcss"
 import { useEffect, useLayoutEffect, useRef, memo, useState } from "react"
+const DynamicGallery = dynamic(() => import('./Gallery'));
 
 type GalleryImageUrls = {
     url: string,
@@ -43,7 +45,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
         if(transitioning.current)return
-        alert('triggered')
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
@@ -57,6 +58,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         })
     }
     useLayoutEffect(() => {
+        alert('layoueffect')
         window.addEventListener('scroll', pageScroll)
         if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
             let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
@@ -65,6 +67,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         }
     },[])
     useEffect(() => {
+        alert('effedt')
         requestAnimationFrame(() => {
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
@@ -163,12 +166,9 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
                         <Image ref={imageRef} alt="placeholder" priority={index < 1} fill loading="eager" src={imageUrl} className={`${powerSavingMode && '!scale-100'} lg:!scale-100 object-cover will-change-transform ease-linear transition-transform select-none scale-150 duration-75`} 
                             placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
                     </div>
-                    {galleryImageUrls.map(({url, placeholder, blurImageUrl}) => (
-                        <div key={url} className="flex-shrink-0 w-full relative" onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()} >
-                            <Image alt={placeholder} loading="lazy" fill src={url} className={`object-cover select-none`} 
-                                placeholder="blur" blurDataURL={blurImageUrl} sizes="100vw"/>
-                        </div>
-                    ))}
+                    {active &&
+                        <DynamicGallery galleryImageUrls={galleryImageUrls} onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()}/>
+                    }
                 </div>
             </div>
         </div>
