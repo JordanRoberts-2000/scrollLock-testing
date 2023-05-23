@@ -43,14 +43,11 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [priceActive, setPriceActive] = useState(true)
     const [imageFixed, setImageFixed] = useState(false)
     const handleSelected = useCallback(() => {
-        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        document.documentElement.style.overflow = 'hidden'
-        document.documentElement.style.touchAction = 'none'
-        document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
         if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
-        // transitioning.current = true
-        // console.log('lets go')
-        // // Stage one
+        transitioning.current = true
+        console.log('lets go')
+        document.documentElement.addEventListener('touchmove', (e) => {e.preventDefault()}, { passive: false })
+        // Stage one
         // requestAnimationFrame(() => {
         //     document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
         //     document.documentElement.style.overflow = 'hidden'
