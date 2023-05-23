@@ -46,57 +46,57 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
         transitioning.current = true
         console.log('lets go')
-        document.documentElement.addEventListener('touchmove', (e) => {e.preventDefault()}, { passive: false })
         // Stage one
-        // requestAnimationFrame(() => {
-        //     document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-        //     document.documentElement.style.overflow = 'hidden'
-        //     document.documentElement.style.touchAction = 'none'
-        //     document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
-        // })
-        // setPriceActive(false)
-        // useStore.setState(() => ({ footerExtended: true }))
-        // // Stage 2
-        // setTimeout(() => {
-        //     categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
-        //     requestAnimationFrame(() => {
-        //         imageRef.current.style.transitionDuration = `600ms`
-        //         imageRef.current.style.transform = `translate(0, 0) scale(1)`
-        //         aspectWrapper.current!.style.aspectRatio = '3/3.3'
-        //     })
-        //     let timer = 0
-        //     const checkTop = setInterval(() => {
-        //         timer += 10
-        //         const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
-        //         if(categoryTopPosition < 1 && categoryTopPosition > -1){
-        //             // Stage 3 - success
-        //             clearInterval(checkTop)
-        //             setActive(true)
-        //             requestAnimationFrame(() => {
-        //                 infoSectionWrapper.current!.style.transitionDuration = `600ms`
-        //                 infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
-        //                 transitioning.current = false
-        //             })
-        //             setTimeout(() => {
-        //                 useStore.setState(() => ({ categoryClicked: title }))
-        //                 setImageFixed(true)
-        //             },700)
-        //         }
-        //         if(timer >= 600){
-        //             // Stage 3 - cancel
-        //             useStore.setState(() => ({ footerExtended: false }))
-        //             clearInterval(checkTop)
-        //             setPriceActive(true)
-        //             transitioning.current = false
-        //             aspectWrapper.current!.style.aspectRatio = '3/2'
-        //             document.documentElement.style.paddingRight = `0px`
-        //             document.documentElement.style.overflow = 'auto'
-        //             document.documentElement.style.touchAction = 'auto'
-        //             imageRef.current.style.transitionDuration = `700ms`
-        //             imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
-        //         }
-        //     }, 10)
-        // }, 10)
+        requestAnimationFrame(() => {
+            document.documentElement.addEventListener('touchmove', (e) => {e.preventDefault()}, { passive: false })
+            document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
+            document.documentElement.style.overflow = 'hidden'
+            document.documentElement.style.touchAction = 'none'
+            document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
+        })
+        setPriceActive(false)
+        useStore.setState(() => ({ footerExtended: true }))
+        // Stage 2
+        setTimeout(() => {
+            categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
+            requestAnimationFrame(() => {
+                imageRef.current.style.transitionDuration = `600ms`
+                imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                aspectWrapper.current!.style.aspectRatio = '3/3.3'
+            })
+            let timer = 0
+            const checkTop = setInterval(() => {
+                timer += 10
+                const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
+                if(categoryTopPosition < 1 && categoryTopPosition > -1){
+                    // Stage 3 - success
+                    clearInterval(checkTop)
+                    setActive(true)
+                    requestAnimationFrame(() => {
+                        infoSectionWrapper.current!.style.transitionDuration = `600ms`
+                        infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                        transitioning.current = false
+                    })
+                    setTimeout(() => {
+                        useStore.setState(() => ({ categoryClicked: title }))
+                        setImageFixed(true)
+                    },700)
+                }
+                if(timer >= 600){
+                    // Stage 3 - cancel
+                    useStore.setState(() => ({ footerExtended: false }))
+                    clearInterval(checkTop)
+                    setPriceActive(true)
+                    transitioning.current = false
+                    aspectWrapper.current!.style.aspectRatio = '3/2'
+                    document.documentElement.style.paddingRight = `0px`
+                    document.documentElement.style.overflow = 'auto'
+                    document.documentElement.style.touchAction = 'auto'
+                    imageRef.current.style.transitionDuration = `700ms`
+                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                }
+            }, 10)
+        }, 10)
     },[])
     const handleExit = useCallback((e:any) => {
         console.log(e.target.parentNode)
