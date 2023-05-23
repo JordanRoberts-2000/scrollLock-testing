@@ -70,9 +70,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
             requestAnimationFrame(() => {
                 imageRef.current.style.transitionDuration = `600ms`
-                alert(imageRef.current.style.transform)
                 imageRef.current.style.transform = `translate(0, 0) scale(1)`
-                alert(imageRef.current.style.transform)
             })
             let timer = 0
             const checkTop = setInterval(() => {
@@ -92,9 +90,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
                         setImageFixed(true)
-                        setTimeout(() => {
-                            alert(imageRef.current.style.transform)
-                        })
                     },700)
                 }
                 if(timer >= 600){
