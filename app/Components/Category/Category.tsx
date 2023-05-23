@@ -35,6 +35,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let imageWrapperRef = useRef<HTMLDivElement>(null)
     let categoryScrollRef = useRef<HTMLDivElement>(null)
     let infoSectionWrapper = useRef<HTMLDivElement>(null)
+    let braedCrumbs = useRef<HTMLDivElement>(null)
     let aspectWrapper = useRef<HTMLDivElement>(null)
     let transitioning = useRef(false)
     const { categoryClicked } = useStore()
@@ -44,6 +45,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const handleSelected = useCallback(() => {
         if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
         transitioning.current = true
+        console.log('lets go')
         // Stage one
         requestAnimationFrame(() => {
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
@@ -97,7 +99,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             }, 10)
         }, 10)
     },[])
-    const handleExit = useCallback(() => {
+    const handleExit = useCallback((e:any) => {
+        console.log(e.target.parentNode)
+        if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
         if(categoryClicked === "" || transitioning.current)return
         console.log('leave now')
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
@@ -151,15 +155,15 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     return (
         <li ref={categoryRef} className={`bg-white relative overscroll-contain select-none max-h-[100dvh] overflow-y-auto`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>
-            <ExitButton active={active} onClick={() => handleExit()}/>
+            <ExitButton active={active} onClick={(e) => handleExit(e)}/>
             <div ref={categoryScrollRef} className={`
                     ${!active ? "aspect-[3/2] w-[95%]": "w-full aspect-auto"} 
                     ${categoryClicked !== title && categoryClicked !== '' ? 'opacity-50 duration-200' : 'opacity-100 duration-500'} 
                     overscroll-contain select-none grid-cols-[2fr,1fr] will-change-[aspect-ratio,opacity,width] ease-linear auto-rows-min mx-auto transition-[opacity,width]`}>
                 {/* Image */}
-                <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] transition-[aspect-ratio] duration-500 mx-auto relative`} onClick={() => handleExit()}>
+                <div ref={aspectWrapper} className={`${active ? "pointer-events-auto" : 'pointer-events-none'} w-[100%] aspect-[3/2] transition-[aspect-ratio] duration-500 mx-auto relative`} onClick={(e) => handleExit(e)}>
                 <CategoryImage imageUrl={imageUrl} active={active} title={title} subtitle={subtitle} index={index} blurImageUrl={blurImageUrl} imageRef={imageRef} 
-                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef} galleryImageUrls={galleryImageUrls}/>
+                                imageWrapperRef={imageWrapperRef} imageFixed={imageFixed} transitioning={transitioning} scrollUpRef={scrollUpRef} galleryImageUrls={galleryImageUrls} braedCrumbs={braedCrumbs}/>
                 </div>
                 {/* Info Section */}
                 <div ref={infoSectionWrapper} className={`grid transition-[grid-template-rows,500ms] grid-rows-[0fr] duration-[600ms] bg-white z-20`}>

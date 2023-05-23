@@ -3,7 +3,7 @@
 import { useStore } from "@/zustand/store"
 // import RiseFade from "@/utils/components/Animation/RiseFade"
 import Image from "next/image"
-import { useEffect, useLayoutEffect, useRef, memo } from "react"
+import { useEffect, useLayoutEffect, useRef, memo, useState } from "react"
 
 type GalleryImageUrls = {
     url: string,
@@ -23,13 +23,15 @@ type Props = {
     imageFixed: boolean,
     transitioning: any,
     scrollUpRef: any,
-    galleryImageUrls: GalleryImageUrls[]
+    galleryImageUrls: GalleryImageUrls[],
+    braedCrumbs: any
 }
 
-const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning, scrollUpRef, galleryImageUrls}: Props) => {
+const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, imageRef, imageWrapperRef, imageFixed, transitioning, scrollUpRef, galleryImageUrls, braedCrumbs}: Props) => {
     const { powerSavingMode } = useStore()
     let sliderWrapper = useRef<HTMLDivElement>(null)
     let currentTranslation = useRef(0)
+    const [indexState, setIndexState] = useState(0)
     let isDragging = useRef(false)
     let throttle = useRef(true)
     let prevTranslation = useRef(0)
@@ -86,13 +88,21 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
         if(isDragging.current) requestAnimationFrame(animation)
     }
-    const setPositionByIndex = () => {
-        currentTranslation.current = currentIndex.current * -window.innerWidth
+    const handleIndexChange = (i: number) => {
+        setPositionByIndex(i)
+        setIndexState(i)
+        currentIndex.current = i
+    }
+    const setPositionByIndex = (i?: number) => {
+        if(i !== null && i !== undefined){
+            currentTranslation.current = i * -window.innerWidth
+        }else{
+            currentTranslation.current = currentIndex.current * -window.innerWidth
+        }
         prevTranslation.current = currentTranslation.current
         sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
     }
     const touchStart = (e:any) => {
-        console.log('eggFoot')
         isDragging.current = true
         startPos.current = e.touches[0].clientX
         animationId.current = requestAnimationFrame(animation)
@@ -111,9 +121,11 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         },300)
         if(movedBy < -100 && currentIndex.current < galleryImageUrls.length){
             currentIndex.current++
+            setIndexState((prev) => prev + 1)
             setPositionByIndex()
         }else if(movedBy > 100 && currentIndex.current > 0){
             currentIndex.current--
+            setIndexState((prev) => prev - 1)
             setPositionByIndex()
         }else{
             setPositionByIndex()
@@ -137,6 +149,12 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
                 <div className={`${active ? "top-[25%]" : "top-[50%]"} absolute duration-300 lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20`}>
                     <h3 className={`${active ? 'scale-125' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic whitespace-nowrap z-20`}>{title}</h3>
                     <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
+                </div>
+                <div ref={braedCrumbs} className={`${imageFixed ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} duration-150 backdrop-blur-sm py-1 px-2 z-20 absolute bottom-0 left-[50%] translate-x-[-50%] mb-2 flex gap-6`}>
+                    <div className={`${0 === indexState ? "bg-white" : ""} h-3 w-3 border-white border-2 rounded-full`} onClick={() => handleIndexChange(0)}></div>
+                    {galleryImageUrls.map((el, index) => (
+                        <div key={el.url} className={`${index + 1 === indexState ? "bg-white" : ""} h-3 w-3 border-white border-2 rounded-full`} onClick={() => handleIndexChange(index + 1)}></div>
+                    ))}
                 </div>
                 <div ref={sliderWrapper} className="flex flex-1 relative duration-300">
                     <div className="flex-shrink-0 w-full relative" onTouchStart={(e) => touchStart(e)} onTouchMove={(e) => touchMove(e)} onTouchEnd={() => touchEnd()}>
