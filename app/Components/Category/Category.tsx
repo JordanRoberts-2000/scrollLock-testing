@@ -138,6 +138,14 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         console.log('leave now')
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
+        if(sliderWrapper.current!.style.transform !== 'translateX(0px)'){
+            await delay(300)
+            sliderWrapper.current!.style.transform = 'translateX(0px)'
+            setIndexState(0)
+            currentIndex.current = 0
+            currentTranslation.current = 0
+            prevTranslation.current = 0
+        }
         useStore.setState(() => ({ footerExtended: false }))
         setTimeout(() => {
             categoryRef.current!.scrollTo({ top: 0, behavior: 'smooth' })
@@ -147,14 +155,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 const categoryTopPosition = categoryRef.current!.scrollTop
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
-                    if(sliderWrapper.current!.style.transform !== 'translateX(0px)'){
-                        await delay(200)
-                        sliderWrapper.current!.style.transform = 'translateX(0px)'
-                        setIndexState(0)
-                        currentIndex.current = 0
-                        currentTranslation.current = 0
-                        prevTranslation.current = 0
-                    }
                     clearInterval(checkTop)
                     setImageFixed(false)
                     requestAnimationFrame(() => {
