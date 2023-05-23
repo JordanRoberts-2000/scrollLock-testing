@@ -44,7 +44,8 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     let startPos = useRef(0)
     const pageScroll = useCallback(() => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
-        // if(transitioning.current)return
+        if(transitioning.current)return
+        alert(imageRef.current.style.transform)
         if(imageRef.current.style.transform === 'translate(0px, 0px) scale(1)')alert('its this')
         throttle.current = false
         setTimeout(() => {
@@ -63,7 +64,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
             let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
             let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-            alert('useLayoutEffect')
             imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
         }
     },[])
@@ -72,7 +72,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
             if(imageWrapperRef.current!.getBoundingClientRect().top <= window.innerHeight && imageWrapperRef.current!.getBoundingClientRect().top >= -imageWrapperRef.current!.getBoundingClientRect().height){
                 let percentagePassed = ((imageWrapperRef.current!.getBoundingClientRect().top - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                 let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                alert('useEffect')
                 imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
             }
         })
