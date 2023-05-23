@@ -42,16 +42,35 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
     const [imageFixed, setImageFixed] = useState(false)
+    function getScrollParent(node: Element): Element {
+        if (isScrollable(node)) {
+          node = node.parentElement!;
+        }
+      
+        while (node && !isScrollable(node)) {
+          node = node.parentElement!;
+        }
+      
+        return node || document.scrollingElement || document.documentElement;
+      }
+    function isScrollable(node: Element): boolean {
+        let style = window.getComputedStyle(node);
+        return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
+      }
+    const bodyPreventScroll = (e:any) => {
+        if(e.target === imageRef.current)e.preventDefault()
+    }
+
     const handleSelected = useCallback(() => {
         if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
         transitioning.current = true
         console.log('lets go')
         // Stage one
         requestAnimationFrame(() => {
-            document.documentElement.addEventListener('touchmove', (e) => {e.preventDefault()}, { passive: false })
+            document.documentElement.addEventListener('touchmove', (e) => {bodyPreventScroll(e)}, { passive: false })
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-            document.documentElement.style.overflow = 'hidden'
-            document.documentElement.style.touchAction = 'none'
+            // document.documentElement.style.overflow = 'hidden'
+            // document.documentElement.style.touchAction = 'none'
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
         })
         setPriceActive(false)

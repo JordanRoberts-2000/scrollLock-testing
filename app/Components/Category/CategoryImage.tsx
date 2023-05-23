@@ -84,7 +84,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     function animation() {
         if(!sliderWrapper.current)return
         if(sliderWrapper.current!.getBoundingClientRect().left > 0)return
-        console.log(sliderWrapper.current!.getBoundingClientRect().left, 'slider')
         sliderWrapper.current!.style.transform = `translateX(${currentTranslation.current}px)`
         if(isDragging.current) requestAnimationFrame(animation)
     }
