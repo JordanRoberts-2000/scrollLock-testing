@@ -57,24 +57,26 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         let style = window.getComputedStyle(node);
         return /(auto|scroll)/.test(style.overflow + style.overflowX + style.overflowY);
       }
-    const bodyPreventScroll = (e:any) => {
+    const bodyPreventScroll = useCallback((e:any) => {
         if(!infoSectionWrapper.current!.contains(e.target)){
             console.log('prevented')
             
             e.preventDefault()
         }
-    }
-
+    },[])
+    // const listenerPrevent = useCallback((e:any) => {
+    //     bodyPreventScroll(e)
+    // },[])
     const handleSelected = useCallback(() => {
         if((active || transitioning.current) || aspectWrapper.current!.style.aspectRatio === '3 / 3.3')return
         transitioning.current = true
         console.log('lets go')
         // Stage one
         requestAnimationFrame(() => {
-            document.documentElement.addEventListener('touchmove', (e) => {bodyPreventScroll(e)}, { passive: false })
+            document.documentElement.addEventListener('touchmove', bodyPreventScroll, { passive: false })
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}`
-            // document.documentElement.style.overflow = 'hidden'
-            // document.documentElement.style.touchAction = 'none'
+            document.documentElement.style.overflow = 'hidden'
+            document.documentElement.style.touchAction = 'none'
             document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
         })
         setPriceActive(false)
@@ -107,10 +109,12 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
+                    document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
                     useStore.setState(() => ({ footerExtended: false }))
                     clearInterval(checkTop)
                     setPriceActive(true)
                     transitioning.current = false
+                    // document.documentElement.removeEventListener('touchmove', (e) => {bodyPreventScroll(e)}, { passive: false })
                     aspectWrapper.current!.style.aspectRatio = '3/2'
                     document.documentElement.style.paddingRight = `0px`
                     document.documentElement.style.overflow = 'auto'
@@ -125,6 +129,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
         console.log(e.target.parentNode)
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
         if(categoryClicked === "" || transitioning.current)return
+        document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
         console.log('leave now')
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
@@ -166,6 +171,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
+                    document.documentElement.addEventListener('touchmove', bodyPreventScroll, { passive: false })
                     aspectWrapper.current!.style.aspectRatio = '3/3.3'
                     useStore.setState(() => ({ footerExtended: true }))
                     clearInterval(checkTop)
