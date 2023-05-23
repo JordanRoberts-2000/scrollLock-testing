@@ -145,7 +145,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
         // </div>
         <div ref={imageWrapperRef} className="h-full w-full relative duration-700 overflow-hidden lg:rounded-lg">
             <div className={`${imageFixed ? "fixed top-0 left-0 aspect-[3/3.3] z-30" : 'relative h-full'} w-full flex overflow-hidden`}>
-                <div className={`${imageFixed ? "fixed aspect-[3/3.3]" : "absolute h-full"} top-0 left-0 w-full bg-white/40 z-10`}></div>
+                <div className={`${imageFixed ? "fixed aspect-[3/3.3]" : "absolute h-full"} top-0 left-0 w-full bg-white/40 z-10 pointer-events-none`}></div>
                 <div className={`${active ? "top-[25%]" : "top-[50%]"} absolute duration-300 lg:top-[20%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center z-20`}>
                     <h3 className={`${active ? 'scale-125' : 'scale-100'} text-4xl duration-500 font-playfairDisplay font-[600] italic whitespace-nowrap z-20`}>{title}</h3>
                     <p className={`${active && 'opacity-0'} text-xl duration-500 font-playfairDisplay`}>{subtitle}</p>
