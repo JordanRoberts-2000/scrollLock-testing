@@ -103,7 +103,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     document.documentElement.style.overflow = 'auto'
                     document.documentElement.style.touchAction = 'auto'
                     imageRef.current.style.transitionDuration = `700ms`
-                    alert('zoom')
                     imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                 }
             }, 10)
@@ -146,7 +145,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         // console.log(heightDifference, 'height')
                         let percentagePassed = (((imageWrapperRef.current!.getBoundingClientRect().top + heightDifference) - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                         let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                        alert('zoomExit')
                         imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
                     })
                     setTimeout(() => {

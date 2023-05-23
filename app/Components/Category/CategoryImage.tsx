@@ -43,6 +43,7 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     const pageScroll = () => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
         if(transitioning.current)return
+        alert('triggered')
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
