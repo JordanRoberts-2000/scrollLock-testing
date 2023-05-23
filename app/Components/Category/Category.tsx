@@ -90,6 +90,10 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     setTimeout(() => {
                         useStore.setState(() => ({ categoryClicked: title }))
                         setImageFixed(true)
+                        setTimeout(() => {
+                            alert(imageRef.current.style.transform)
+                            alert( aspectWrapper.current!.style.aspectRatio)
+                        })
                     },700)
                 }
                 if(timer >= 600){
