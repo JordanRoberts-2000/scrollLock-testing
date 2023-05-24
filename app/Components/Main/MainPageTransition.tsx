@@ -1,7 +1,7 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
-import { usePathname } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useRef, useLayoutEffect, useEffect } from "react"
 
 const MainPageTransition = ({children}: {children : React.ReactNode}) => {
@@ -13,10 +13,16 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
         // wrapperRef.current!.style.top = '-250px'
        
     }
-    const pathname = usePathname()
+    const searchParams = useSearchParams();
+    const category = searchParams.get('category')
     useEffect(() => {
-        console.log('eggygygyg', pathname)
-        if(homeImageLoaded)transitionPage()
+        console.log('eggygygyg', category)
+        if(category !== null && homeImageLoaded){
+            setTimeout(() => {
+                transitionDiv.current!.style.opacity = '0'
+            },200)
+        }
+        if(homeImageLoaded && category === null)transitionPage()
     },[homeImageLoaded])
     return (
         <>
