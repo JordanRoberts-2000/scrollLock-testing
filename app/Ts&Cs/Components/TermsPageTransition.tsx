@@ -20,6 +20,9 @@ const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
     },[])
     useLayoutEffect(() => {
         if(termsImageLoaded)transitionPage()
+        useStore.setState(() => ({ 
+            footerExtended: false,
+            categoryClicked: '',}))
     },[termsImageLoaded])
     return (
         <>
