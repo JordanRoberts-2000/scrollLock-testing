@@ -29,7 +29,7 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
             <div ref={wrapperRef} className='relative overflow-hidden w-full h-[35vh] lg:h-[100lvh] -z-50'>
                 {children}
             </div>
-            <div ref={transitionDiv} className={`h-[100lvh] translate-y-[0] bg-gray-200 z-40 duration-500 will-change-transform fixed bottom-0 left-0 w-full`}></div>
+            <div ref={transitionDiv} className={`h-[100lvh] translate-y-[0] bg-gray-200 z-40 duration-500 pointer-events-none will-change-transform fixed bottom-0 left-0 w-full`}></div>
         </>
     )
 }
