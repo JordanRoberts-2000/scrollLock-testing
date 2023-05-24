@@ -173,8 +173,13 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     },[categoryClicked])
     const searchParams = useSearchParams();
     const category = searchParams.get('category')
+    useEffect(() => {
+        if(category === title.toLowerCase() && document.documentElement.style.overflow !== 'hidden'){
+             useStore.setState(() => ({ categoryClicked: title }))
+        }
+    }, [category])
     useLayoutEffect(() => {
-        // console.log(title.toLowerCase(), category, 'fooh')
+        console.log(title.toLowerCase(), category, 'fooh')
         if(category === title.toLowerCase() && document.documentElement.style.overflow !== 'hidden'){
             requestAnimationFrame(() => {
                 document.documentElement.addEventListener('touchmove', bodyPreventScroll, { passive: false })
@@ -202,10 +207,9 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                             transitioning.current = false
                         })
                         setImageFixed(true)
-                        // setTimeout(() => {
-                        //     useStore.setState(() => ({ categoryClicked: title }))
-                        //     setImageFixed(true)
-                        // },10)
+                        setTimeout(() => {
+                            setImageFixed(true)
+                        },10)
                     },10)
                 }
             }, 10)
