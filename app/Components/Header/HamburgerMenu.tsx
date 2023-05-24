@@ -2,7 +2,9 @@
 
 import { useStore } from "@/zustand/store"
 import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import Link from "next/link"
+import { useEffect, useLayoutEffect, useState } from "react"
+import { useSearchParams } from 'next/navigation';
 
 const variants = { 
     oneActive: { width: ['1.5rem'], rotate: 45, y: 10 }, oneInactive: { width: '2rem', },
@@ -12,10 +14,18 @@ const variants = {
 
 const HamburgerMenu = () => {
     const { categoryClicked, navActive } = useStore()
+    const searchParams = useSearchParams();
+    const category = searchParams.get('category')
+    useEffect(() => {
+        useStore.setState((set: any) => ({navActive: false}))
+    },[category])
     const handleClick = () => {
         useStore.setState((set: any) => ({navActive: !set.navActive}))
         if(!navActive)useStore.setState((set: any) => ({bodyLocked: true}))
         if(navActive && categoryClicked === "")useStore.setState((set: any) => ({bodyLocked: false}))
+    }
+    const handleSelected = (selected: string) => {
+        useStore.setState(() => ({navSelected: selected}))
     }
     return (
         <>
@@ -27,12 +37,11 @@ const HamburgerMenu = () => {
             <nav className={`${!navActive ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} lg:opacity-100 lg:relative lg:bg-white/0 lg:h-auto 
                             lg:w-auto top-0 fixed h-[100dvh] w-[100%] left-0 bg-white duration-300 lg:ml-auto flex justify-between flex-col lg:flex-row`}>
                 <ul className='flex py-6 lg:py-0 flex-1 justify-around lg:mr-8 font-bold flex-col lg:gap-12 text-center text-3xl lg:text-base lg:flex-row lg:mt-0 w-fit mx-auto'>
-                    <li className="border-b-2 border-black lg:border-none">FISHING</li>
-                    <li className="border-b-2 border-black lg:border-none">VOLLYBALL</li>
-                    <li className="border-b-2 border-black lg:border-none">PARASAILING</li>
-                    <li className="border-b-2 border-black lg:border-none">JET SKIS</li>
-                    <li className="border-b-2 border-black lg:border-none">SURFING</li>
-                    <li className="border-b-2 border-black lg:border-none">SWIMMING</li>
+                    <li className="border-b-2 border-black lg:border-none"><Link href={{pathname : '/', query : {category: 'Swimming'}}}>SWIMMING</Link></li>
+                    <li className="border-b-2 border-black lg:border-none"><Link href={{pathname : '/', query : {category:'parasailing'}}}>PARASAILING</Link></li>
+                    <li className="border-b-2 border-black lg:border-none"><Link href={{pathname : '/', query : {category:'fishing'}}}>FISHING</Link></li>
+                    <li className="border-b-2 border-black lg:border-none"><Link href={{pathname : '/', query : {category:'vollyball'}}}>VOLLYBALL</Link></li>
+                    <li className="border-b-2 border-black lg:border-none"><Link href={{pathname : '/', query : {category:'horseriding'}}}>HORSERIDING</Link></li>
                 </ul>
                 <div className="flex flex-col">
                     <div className="lg:hidden flex gap-4 mx-auto mb-4">

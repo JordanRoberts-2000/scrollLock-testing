@@ -1,9 +1,10 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
-import { useRef, useState, useCallback, useMemo, memo } from "react"
+import { useRef, useState, useCallback, useMemo, memo, useEffect, useLayoutEffect } from "react"
 import CategoryImage from "./CategoryImage"
 import ExitButton from "./ExitButton"
+import { useSearchParams } from "next/navigation"
 
 type PriceOptions = {
     title: string,
@@ -110,9 +111,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     },[])
     const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
     const handleExit = useCallback(async (e:any) => {
-        console.log()
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
-        if(categoryClicked === "" || transitioning.current)return
+        if((categoryClicked === "" || transitioning.current))return
         document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
@@ -171,6 +171,46 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             }, 10)
         }, 10)
     },[categoryClicked])
+    const searchParams = useSearchParams();
+    const category = searchParams.get('category')
+    useLayoutEffect(() => {
+        // console.log(title.toLowerCase(), category, 'fooh')
+        if(category === title.toLowerCase() && document.documentElement.style.overflow !== 'hidden'){
+            requestAnimationFrame(() => {
+                document.documentElement.addEventListener('touchmove', bodyPreventScroll, { passive: false })
+                document.documentElement.style.overflow = 'hidden'
+                document.documentElement.style.touchAction = 'none'
+                document.documentElement.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`
+                imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                imageRef.current.style.transitionDuration = `0ms`
+            })
+            setPriceActive(false)
+            useStore.setState(() => ({ footerExtended: true }))
+            // Stage 2
+            setTimeout(() => {
+                categoryScrollRef.current!.scrollIntoView()
+                let timer = 0
+                const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
+                if(categoryTopPosition < 1 && categoryTopPosition > -1){
+                    // Stage 3 - success
+                    setTimeout(() => {
+                        aspectWrapper.current!.style.aspectRatio = '3/3.3'
+                        setActive(true)
+                        requestAnimationFrame(() => {
+                            infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                            imageRef.current.style.transform = `translate(0, 0) scale(1)`
+                            transitioning.current = false
+                        })
+                        setImageFixed(true)
+                        // setTimeout(() => {
+                        //     useStore.setState(() => ({ categoryClicked: title }))
+                        //     setImageFixed(true)
+                        // },10)
+                    },10)
+                }
+            }, 10)
+        }
+    },[category])
     return (
         <li ref={categoryRef} className={`bg-white relative overscroll-contain select-none max-h-[100dvh] overflow-y-auto`} onClick={() => handleSelected()}>
             <div ref={scrollUpRef} className="absolute opacity-0 pointer-events-none top-[-50px] h-[1px] w-full"></div>

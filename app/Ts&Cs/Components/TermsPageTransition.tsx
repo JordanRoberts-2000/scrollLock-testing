@@ -5,7 +5,6 @@ import { useStore } from '@/zustand/store'
 import { useLayoutEffect, useRef } from 'react';
 
 const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
-    usePreventScroll()
     const { termsImageLoaded } = useStore()
     let transitionDiv = useRef<HTMLDivElement>(null)
     let wrapperRef = useRef<HTMLDivElement>(null)
@@ -17,6 +16,12 @@ const TermsPageTransition = ({children}: {children : React.ReactNode}) => {
     }
     useLayoutEffect(() => {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+        document.documentElement.style.touchAction = 'none'
+        document.documentElement.style.overflow = 'hidden'
+        return () => {
+            document.documentElement.style.touchAction = 'auto'
+            document.documentElement.style.overflow = 'auto'
+        }
     },[])
     useLayoutEffect(() => {
         if(termsImageLoaded)transitionPage()
