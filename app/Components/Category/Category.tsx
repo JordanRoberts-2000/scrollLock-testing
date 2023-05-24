@@ -76,18 +76,20 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                 const categoryTopPosition = categoryScrollRef.current!.getBoundingClientRect().top 
                 if(categoryTopPosition < 1 && categoryTopPosition > -1){
                     // Stage 3 - success
-                    aspectWrapper.current!.style.aspectRatio = '3/3.3'
-                    clearInterval(checkTop)
-                    setActive(true)
-                    requestAnimationFrame(() => {
-                        infoSectionWrapper.current!.style.transitionDuration = `600ms`
-                        infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
-                        transitioning.current = false
-                    })
                     setTimeout(() => {
-                        useStore.setState(() => ({ categoryClicked: title }))
-                        setImageFixed(true)
-                    },700)
+                        aspectWrapper.current!.style.aspectRatio = '3/3.3'
+                        clearInterval(checkTop)
+                        setActive(true)
+                        requestAnimationFrame(() => {
+                            infoSectionWrapper.current!.style.transitionDuration = `600ms`
+                            infoSectionWrapper.current!.style.gridTemplateRows = '1fr'
+                            transitioning.current = false
+                        })
+                        setTimeout(() => {
+                            useStore.setState(() => ({ categoryClicked: title }))
+                            setImageFixed(true)
+                        },700)
+                    },100)
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
