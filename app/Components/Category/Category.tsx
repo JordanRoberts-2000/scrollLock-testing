@@ -110,7 +110,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     },[])
     const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
     const handleExit = useCallback(async (e:any) => {
-        console.log(categoryRef.current!.scrollTop,'stinky scroll')
+        alert('cancel')
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
         if(categoryClicked === "" || transitioning.current)return
         document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
