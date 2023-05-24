@@ -89,7 +89,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                             useStore.setState(() => ({ categoryClicked: title }))
                             setImageFixed(true)
                         },700)
-                    },100)
+                    },10)
                 }
                 if(timer >= 600){
                     // Stage 3 - cancel
@@ -97,7 +97,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     useStore.setState(() => ({ footerExtended: false }))
                     clearInterval(checkTop)
                     setPriceActive(true)
-                    alert('start cancelled')
                     transitioning.current = false
                     // document.documentElement.removeEventListener('touchmove', (e) => {bodyPreventScroll(e)}, { passive: false })
                     document.documentElement.style.paddingRight = `0px`
