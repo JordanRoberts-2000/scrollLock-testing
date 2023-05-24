@@ -10,13 +10,10 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
     let wrapperRef = useRef<HTMLDivElement>(null)
     const transitionPage = () => {
         transitionDiv.current!.style.transform = 'translate(0, 100vh)'
-        // wrapperRef.current!.style.top = '-250px'
-       
     }
     const searchParams = useSearchParams();
     const category = searchParams.get('category')
     useEffect(() => {
-        console.log('eggygygyg', category)
         if(category !== null && homeImageLoaded){
             setTimeout(() => {
                 transitionDiv.current!.style.opacity = '0'
