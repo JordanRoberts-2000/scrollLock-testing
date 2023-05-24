@@ -32,8 +32,8 @@ const Main = () => {
                     </div>
                     <span className="text-2xl z-20 font-[800] italic font-playfairDisplay lg:mb-4 lg:text-[2.5rem] mb-2 lg:bg-black bg-white lg:text-white mr-2 backdrop-blur-sm lg:pl-4 lg:py-2 lg:pr-8">Follow Us</span>
                     <div className="fixed h-[35vh] top-0 left-0 w-full lg:relative lg:h-auto -z-50">
-                        <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-full lg:w-auto mb-12 lg:relative lg:translate-x-0 lg:left-auto lg:bottom-auto lg:mb-0 flex gap-8">
-                            <Link href={'bookings'} className="border-2 ml-4 font-sm shadow-lg py-1 text-center border-black backdrop-blur-sm flex-1 rounded-sm px-4 font-bold whitespace-nowrap
+                        <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-full lg:w-auto mb-12 lg:relative lg:translate-x-0 lg:left-auto lg:bottom-auto lg:mb-0 flex gap-12">
+                            <Link href={'bookings'} className="border-2 ml-4 font-sm font-playfairDisplay rounded-md shadow-lg py-1 text-center border-black backdrop-blur-sm flex-1 px-4 font-bold whitespace-nowrap
                                         lg:hidden">
                                 Book now
                             </Link>

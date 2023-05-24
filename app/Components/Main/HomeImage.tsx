@@ -7,9 +7,11 @@ import { useRef, useEffect, useCallback } from "react"
 
 const HomeImage = () => {
     const pathname = usePathname()
+    const { homeImageLoaded } = useStore()
     let imageRef = useRef<any>(null)
     let titleWrapperRef = useRef<HTMLDivElement>(null)
     let subtitleRef = useRef<HTMLHeadingElement>(null)
+    let transitionWrapper = useRef<HTMLDivElement>(null)
     let imageWrapperRef = useRef<HTMLDivElement>(null)
     let throttle = useRef(true)
     let currentPathname = useRef(pathname)
@@ -35,9 +37,12 @@ const HomeImage = () => {
         window.addEventListener('scroll', pageScroll)
         currentPathname.current = pathname
     },[pathname])
+    // useEffect(() => {
+    //     if(homeImageLoaded)transitionPage()
+    // },[homeImageLoaded])
     return (
         <>
-            <div ref={imageWrapperRef} className="h-[calc(35vh+50px)] fixed top-0 w-full overflow-hidden lg:h-[calc(100vh+50px)] -z-20">
+            <div ref={imageWrapperRef} className="h-[35vh] fixed top-0 w-full overflow-hidden lg:h-[calc(100vh+50px)] -z-20">
                 <div className='absolute flex flex-col-reverse lg:flex-col top-[20%] lg:top-[10%] left-[50%] translate-x-[-50%] z-30 items-center justify-center'>
                     <div ref={titleWrapperRef} className=" text-lg font-playfairDisplay italic font-[800] lg:text-8xl 
                                     whitespace-nowrap w-fit translate-y-[-8px] text-center">
@@ -50,7 +55,9 @@ const HomeImage = () => {
                         Pocahontas Beach
                     </h2>
                 </div>
-                <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={75} onLoadingComplete={() => imageLoaded()} className='will-change-transform ease-linear duration-300 object-cover'/>
+                <div className={`w-full h-[calc(35vh+50px)] ${homeImageLoaded ? "top-[-50px]" : "top-0"} left-0 duration-1000 delay-75 absolute`}>
+                    <Image ref={imageRef} alt='beach' priority fill src={'http://res.cloudinary.com/dewhcvhvq/image/upload/v1684577988/x1jrk2yk0lctz0iy8t6b.webp'} quality={75} onLoadingComplete={() => imageLoaded()} className='will-change-transform ease-linear duration-300 object-cover'/>
+                </div>
             </div>
         </>
     )
