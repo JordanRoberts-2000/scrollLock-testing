@@ -103,18 +103,17 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                     document.documentElement.style.overflow = 'auto'
                     document.documentElement.style.touchAction = 'auto'
                     imageRef.current.style.transitionDuration = `700ms`
-                    // imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
+                    imageRef.current.style.transform = `translate(0, 0) scale(1.5)`
                 }
             }, 10)
         }, 10)
     },[])
     const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
     const handleExit = useCallback(async (e:any) => {
-        alert('cancel')
+        console.log()
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
         if(categoryClicked === "" || transitioning.current)return
         document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
-        console.log('leave now')
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
         if(sliderWrapper.current!.style.transform !== 'translateX(0px)'){
@@ -145,7 +144,7 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
                         // console.log(heightDifference, 'height')
                         let percentagePassed = (((imageWrapperRef.current!.getBoundingClientRect().top + heightDifference) - window.innerHeight)*-1)/(window.innerHeight + imageWrapperRef.current!.getBoundingClientRect().height)
                         let defaultPosition = (imageWrapperRef.current!.getBoundingClientRect().height * -.25)
-                        // imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
+                        imageRef.current.style.transform = `translate(0, ${(defaultPosition + (percentagePassed * imageWrapperRef.current!.getBoundingClientRect().height * .5))}px) scale(1.5)`
                     })
                     setTimeout(() => {
                         setActive(false)
