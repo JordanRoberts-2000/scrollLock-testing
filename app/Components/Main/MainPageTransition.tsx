@@ -1,6 +1,7 @@
 'use client'
 
 import { useStore } from "@/zustand/store"
+import { usePathname } from "next/navigation"
 import { useRef, useLayoutEffect, useEffect } from "react"
 
 const MainPageTransition = ({children}: {children : React.ReactNode}) => {
@@ -12,7 +13,9 @@ const MainPageTransition = ({children}: {children : React.ReactNode}) => {
         // wrapperRef.current!.style.top = '-250px'
        
     }
+    const pathname = usePathname()
     useEffect(() => {
+        console.log('eggygygyg', pathname)
         if(homeImageLoaded)transitionPage()
     },[homeImageLoaded])
     return (

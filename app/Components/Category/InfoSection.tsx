@@ -36,11 +36,11 @@ const InfoSection = ({priceOptions, reviews, introParagraph, title}: Props) => {
                     <div className="h-[2px] bg-black flex-1"></div>
                 </div> */}
                 <div className="flex gap-4 ml-4 text-2xl font-bold items-center mb-2 pl-1">
-                    <div className="bg-black h-8 w-8 rounded-full flex items-center justify-center overflow-hidden">
+                    <a href="tel:+442071234567" className="bg-black h-8 w-8 rounded-full flex items-center justify-center overflow-hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                         </svg>
-                    </div>
+                    </a>
                     <div className="bg-black h-8 w-8 rounded-full flex items-center justify-center overflow-hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" strokeWidth={2} stroke="white" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />

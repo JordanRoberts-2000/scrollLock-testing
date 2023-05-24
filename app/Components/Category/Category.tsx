@@ -44,6 +44,8 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     let sliderWrapper = useRef<HTMLDivElement>(null)
     let currentTranslation = useRef(0)
     let transitioning = useRef(false)
+    const searchParams = useSearchParams();
+    const category = searchParams.get('category')
     const { categoryClicked } = useStore()
     const [active, setActive] = useState(false)
     const [priceActive, setPriceActive] = useState(true)
@@ -112,7 +114,11 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
     const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
     const handleExit = useCallback(async (e:any) => {
         if(e.target === braedCrumbs.current || e.target.parentNode === braedCrumbs.current)return
-        if((categoryClicked === "" || transitioning.current))return
+        if(transitioning.current)return
+        console.log(category, title)
+        if(category !== title.toLowerCase()){
+            if((categoryClicked === ""))return
+        }
         document.documentElement.removeEventListener('touchmove', bodyPreventScroll)
         // console.log(imageWrapperRef.current!.getBoundingClientRect().top, scrollUpRef.current!.getBoundingClientRect().top)
         transitioning.current = true
@@ -171,13 +177,13 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             }, 10)
         }, 10)
     },[categoryClicked])
-    const searchParams = useSearchParams();
-    const category = searchParams.get('category')
     useEffect(() => {
         if(category === title.toLowerCase() && document.documentElement.style.overflow !== 'hidden'){
-             useStore.setState(() => ({ categoryClicked: title }))
+            setTimeout(() => {
+                // useStore.setState(() => ({ categoryClicked: title }))
+            }, 10)
         }
-    }, [category])
+    }, [])
     useLayoutEffect(() => {
         console.log(title.toLowerCase(), category, 'fooh')
         if(category === title.toLowerCase() && document.documentElement.style.overflow !== 'hidden'){
