@@ -70,7 +70,6 @@ const Category = ({children, imageUrl, title, subtitle, priceOptions, galleryIma
             categoryScrollRef.current!.scrollIntoView({ behavior: "smooth"})
             requestAnimationFrame(() => {
                 imageRef.current.style.transitionDuration = `600ms`
-                imageRef.current.style.transform = `translate(0, 0) scale(1)`
             })
             let timer = 0
             const checkTop = setInterval(() => {

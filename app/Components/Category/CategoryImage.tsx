@@ -45,8 +45,6 @@ const CategoryImage = ({imageUrl, active, title, subtitle, blurImageUrl, index, 
     const pageScroll = useCallback(() => {
         if(!throttle.current || !imageRef.current || powerSavingMode)return
         if(transitioning.current)return
-        alert(imageRef.current.style.transform)
-        if(imageRef.current.style.transform === 'translate(0px, 0px) scale(1)')alert('its this')
         throttle.current = false
         setTimeout(() => {
             throttle.current = true
